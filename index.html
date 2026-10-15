@@ -470,7 +470,7 @@ button { font: inherit; color: inherit; }
         if (state === 'play') {
           state = 'ready';
           msg.hidden = false;
-          msg.textContent = touches === 0 ? 'tap the ball to serve' : touches + ' touches. tap to play again';
+          msg.textContent = touches === 0 ? 'tap the ball to serve' : touches + (touches === 1 ? ' touch' : ' touches') + '. tap to play again';
         }
         ball.vy = Math.abs(ball.vy) > 120 ? -Math.abs(ball.vy) * 0.34 : 0;
         ball.vx *= 0.78;
