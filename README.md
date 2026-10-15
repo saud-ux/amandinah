@@ -2,13 +2,12 @@
 
 A birthday surprise for Amanda (Amandinah), 15 October.
 
-`index.html` is the whole page, a phone-style story:
+`index.html` is the whole page, a stack of instant-photo cards she swipes through:
 
-1. She taps a gift to open it.
-2. Five photos play like a story (tap to skip, hold to pause).
-3. Beach volleyball: keep the ball up for 15 touches.
-4. Birthday cake: play the song, make a wish, tap the candles to blow them out.
-5. Saud's message with emoji confetti.
+1. Five photo cards (her selfie, the swing, the pacifier, the balcony, the mirror).
+2. A volleyball card that opens a full-screen beach game: keep the ball up for 15 touches.
+3. A cake card: play the song, make a wish, tap the candles to blow them out.
+4. Saud's message.
 
 `photos/` holds the photos the page uses.
 
