@@ -394,7 +394,6 @@ button { font: inherit; color: inherit; }
     const msg = document.getElementById('gameMsg');
     const after = document.getElementById('afterGame');
     const GOAL = 15;
-    const CHEER = { 3: 'nice!', 5: 'five! keep going', 8: 'halfway there', 10: 'ten!!', 12: 'almost...', 14: 'one more!!' };
     const ball = { x: 0, y: 0, vx: 0, vy: 0, r: 32, a: 0 };
     let W = 0, H = 0, d = null, state = 'ready', touches = 0, best = 0, won = false, lastHit = 0, last = 0, raf = 0, running = false;
     try { best = parseInt(localStorage.getItem('amandinah-best') || '0', 10) || 0; } catch (e) { best = 0; }
@@ -433,19 +432,14 @@ button { font: inherit; color: inherit; }
       }
       if (touches === GOAL && !won) {
         won = true;
-        msg.textContent = '15!! happy birthday, champ';
         after.hidden = false;
         const r = cv.getBoundingClientRect();
         fx.burst(...fx.local(r.left + ball.x * (r.width / W), r.top + ball.y * (r.height / H)), 60, ['#FFC72C', '#1E5BC6', '#FFFFFF', '#E8336F']);
-      } else if (!won && CHEER[touches]) {
-        msg.textContent = CHEER[touches];
-      } else if (won) {
-        msg.textContent = touches + '! still going';
       }
     }
     function serve() {
       state = 'play'; touches = 0; won = false; tEl.textContent = '0';
-      msg.textContent = 'keep it up! 15 touches';
+      msg.hidden = true;
       bump(ball.x + (Math.random() - 0.5) * ball.r);
     }
     function tap(px, py) {
@@ -475,8 +469,8 @@ button { font: inherit; color: inherit; }
         ball.y = fy;
         if (state === 'play') {
           state = 'ready';
-          if (touches >= GOAL) msg.textContent = touches + ' touches! tap to play again';
-          else msg.textContent = touches === 0 ? 'tap the ball to serve' : touches + ' touches, so close! tap to try again';
+          msg.hidden = false;
+          msg.textContent = touches === 0 ? 'tap the ball to serve' : touches + ' touches. tap to play again';
         }
         ball.vy = Math.abs(ball.vy) > 120 ? -Math.abs(ball.vy) * 0.34 : 0;
         ball.vx *= 0.78;
