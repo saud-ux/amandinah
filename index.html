@@ -80,16 +80,32 @@ button { font: inherit; color: inherit; }
 }
 
 /* Cake card */
-.cake-box { position: relative; border-radius: 6px; overflow: hidden; padding: 16px 10px 18px; background: radial-gradient(circle at 50% 62%, #4A2A20 0%, #241512 55%, #140C0B 100%); color: #FFFFFF; text-align: center; }
+.cake-box { position: relative; border-radius: 6px; overflow: hidden; padding: 16px 10px 14px; background: radial-gradient(1.5px 1.5px at 12% 14%, #FFFFFF 50%, transparent 51%), radial-gradient(1.5px 1.5px at 30% 6%, rgba(255,255,255,.8) 50%, transparent 51%), radial-gradient(1px 1px at 78% 10%, #FFFFFF 50%, transparent 51%), radial-gradient(1.5px 1.5px at 90% 24%, rgba(255,255,255,.7) 50%, transparent 51%), radial-gradient(1px 1px at 58% 4%, #FFFFFF 50%, transparent 51%), radial-gradient(circle at 50% 70%, #3E3766 0%, #221E42 55%, #14112A 100%); color: #FFFFFF; text-align: center; }
 .cake-box::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 58%, rgba(255, 186, 104, .3), rgba(255, 186, 104, 0) 55%); transition: opacity 1.2s ease; pointer-events: none; }
 .cake-box.dim::before { opacity: 0; }
 .cake-status { position: relative; margin: 0 0 10px; min-height: 1.35em; font-size: 15px; font-weight: 600; color: rgba(255, 255, 255, .85); }
-.candles { position: relative; z-index: 2; display: flex; justify-content: center; gap: 4px; margin-bottom: -1px; }
-.candle { appearance: none; border: 0; background: none; padding: 0; cursor: pointer; position: relative; width: 44px; height: 92px; }
-.candle .stick { position: absolute; bottom: 0; left: 50%; width: 10px; height: 42px; transform: translateX(-50%); border-radius: 3px; background: repeating-linear-gradient(140deg, #FFFFFF 0 5px, #FF8FB1 5px 10px); }
-.candle .wick { position: absolute; bottom: 42px; left: 50%; width: 1.5px; height: 6px; transform: translateX(-50%); background: #3A2A24; }
+.cake-art { position: relative; width: 260px; height: 262px; margin: 0 auto; }
+.cake-canvas { position: absolute; left: 0; top: 60px; width: 260px; height: 200px; }
+.cake-name { position: absolute; left: 130px; top: 202px; transform: translateX(-50%); z-index: 2; font-family: "Snell Roundhand", "Brush Script MT", "Segoe Script", cursive; font-size: 30px; font-weight: 700; line-height: 1; color: #FFFFFF; text-shadow: 0 1px 2px rgba(0, 60, 80, .45); pointer-events: none; }
+.topper, .deco { position: absolute; line-height: 1; font-family: var(--emoji); pointer-events: none; transform-origin: 50% 100%; }
+.topper.ball { left: 130px; top: 128px; font-size: 44px; z-index: 2; transform: translate(-50%, -94%); animation: wobble 4s ease-in-out infinite; }
+.topper.parrot { left: 214px; top: 184px; font-size: 42px; z-index: 4; transform: translate(-50%, -92%); animation: perch 3.2s ease-in-out infinite; }
+.deco.palm { left: 44px; top: 184px; font-size: 38px; z-index: 1; transform: translate(-50%, -92%) rotate(-6deg); }
+.deco.shell { left: 34px; top: 258px; font-size: 20px; z-index: 4; transform: translate(-50%, -100%) rotate(-12deg); }
+.deco.flower { left: 228px; top: 258px; font-size: 22px; z-index: 4; transform: translate(-50%, -100%) rotate(10deg); }
+@keyframes wobble { 0%, 100% { transform: translate(-50%, -94%) rotate(-4deg); } 50% { transform: translate(-50%, -94%) rotate(4deg); } }
+@keyframes perch { 0%, 70%, 100% { transform: translate(-50%, -92%) rotate(0); } 78% { transform: translate(-50%, -92%) rotate(-10deg); } 86% { transform: translate(-50%, -92%) rotate(6deg); } }
+@keyframes hop { 0%, 100% { transform: translate(-50%, -92%); } 40% { transform: translate(-50%, -150%) rotate(-8deg); } }
+@keyframes ballhop { 0%, 100% { transform: translate(-50%, -94%); } 40% { transform: translate(-50%, -170%) rotate(180deg); } }
+.cake-art.party .topper.parrot { animation: hop .55s ease-in-out 3; }
+.cake-art.party .topper.ball { animation: ballhop .7s ease-in-out 2; }
+.candle { appearance: none; border: 0; background: none; padding: 0; cursor: pointer; position: absolute; width: 24px; height: 78px; margin-left: -12px; z-index: 3; }
+.candle.front { z-index: 3; }
+.candle.back { z-index: 1; }
+.candle .stick { position: absolute; bottom: 0; left: 50%; width: 9px; height: 34px; transform: translateX(-50%); border-radius: 3px; background: repeating-linear-gradient(140deg, #FFFFFF 0 5px, #FF8FB1 5px 10px); }
+.candle .wick { position: absolute; bottom: 34px; left: 50%; width: 1.5px; height: 5px; transform: translateX(-50%); background: #3A2A24; }
 .candle .flame {
-  position: absolute; bottom: 46px; left: 50%; width: 13px; height: 24px; margin-left: -6.5px;
+  position: absolute; bottom: 38px; left: 50%; width: 12px; height: 22px; margin-left: -6px;
   border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
   background: radial-gradient(ellipse at 50% 72%, #FFF8E2 0 22%, #FFD27A 42%, #FF9A45 72%, rgba(255, 120, 40, 0) 100%);
   box-shadow: 0 0 16px 6px rgba(255, 186, 104, .45);
@@ -103,15 +119,9 @@ button { font: inherit; color: inherit; }
 .candle:nth-child(5) .flame { animation-delay: -.8s; }
 @keyframes flicker { 0% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.06, .94) rotate(2deg); } 100% { transform: scale(.95, 1.05) rotate(-1deg); } }
 .candle.out .flame { opacity: 0; transform: scale(.2); animation: none; }
-.candle .smoke { position: absolute; bottom: 46px; left: 50%; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: rgba(214, 204, 196, .55); filter: blur(3px); opacity: 0; pointer-events: none; }
+.candle .smoke { position: absolute; bottom: 38px; left: 50%; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: rgba(214, 204, 196, .55); filter: blur(3px); opacity: 0; pointer-events: none; }
 .candle.out .smoke { animation: smoke 1.6s ease-out forwards; }
 @keyframes smoke { 0% { opacity: .7; transform: translateY(0) scale(.6); } 100% { opacity: 0; transform: translateY(-44px) scale(1.8); } }
-.cake { position: relative; display: flex; flex-direction: column; align-items: center; }
-.tier.top { width: 150px; height: 44px; border-radius: 9px 9px 4px 4px;
-  background: radial-gradient(circle at 50% 0, #FF8FB1 8px, transparent 8.5px) 0 0 / 17px 14px repeat-x, linear-gradient(#FF8FB1, #FF8FB1) 0 0 / 100% 5px no-repeat, #FFF6EE; }
-.tier.bottom { width: 214px; height: 58px; border-radius: 11px 11px 5px 5px;
-  background: radial-gradient(circle, #F4C95D 0 3px, transparent 3.5px) 0 100% / 14px 11px repeat-x, radial-gradient(circle at 50% 0, #E8508A 9px, transparent 9.5px) 0 0 / 19px 15px repeat-x, linear-gradient(#E8508A, #E8508A) 0 0 / 100% 5px no-repeat, #FFF6EE; }
-.plate { width: 252px; max-width: 100%; height: 10px; margin-top: -2px; border-radius: 50%; background: #E9D9C4; box-shadow: 0 5px 0 -2px #B9A388; }
 .cake-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
 .pill {
   appearance: none; cursor: pointer;
@@ -207,14 +217,19 @@ button { font: inherit; color: inherit; }
         <p class="card-title">make a wish ✨</p>
         <div class="cake-box" id="cakeBox">
           <p class="cake-status" id="cakeStatus" aria-live="polite">then tap the candles to blow them out</p>
-          <div class="candles">
-            <button class="candle" type="button" aria-label="Blow out candle 1"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
-            <button class="candle" type="button" aria-label="Blow out candle 2"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
-            <button class="candle" type="button" aria-label="Blow out candle 3"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
-            <button class="candle" type="button" aria-label="Blow out candle 4"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
-            <button class="candle" type="button" aria-label="Blow out candle 5"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+          <div class="cake-art" id="cakeArt">
+            <canvas class="cake-canvas" id="cakeCanvas" aria-hidden="true"></canvas>
+            <span class="deco palm" aria-hidden="true">🌴</span>
+            <span class="cake-name" aria-hidden="true">Amanda</span>
+            <button class="candle back" type="button" aria-label="Blow out candle 1" style="left: 80px; top: 42px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle back" type="button" aria-label="Blow out candle 4" style="left: 180px; top: 42px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+            <span class="topper ball" aria-hidden="true">🏐</span>
+            <button class="candle front" type="button" aria-label="Blow out candle 2" style="left: 104px; top: 47px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle front" type="button" aria-label="Blow out candle 3" style="left: 156px; top: 47px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+            <span class="topper parrot" aria-hidden="true">🦜</span>
+            <span class="deco shell" aria-hidden="true">🐚</span>
+            <span class="deco flower" aria-hidden="true">🌺</span>
           </div>
-          <div class="cake" aria-hidden="true"><div class="tier top"></div><div class="tier bottom"></div><div class="plate"></div></div>
         </div>
         <div class="cake-actions">
           <button class="pill" type="button" id="songBtn">🎵 play happy birthday</button>
@@ -583,6 +598,72 @@ button { font: inherit; color: inherit; }
   const candles = [...cakeBox.querySelectorAll('.candle')];
   const cakeStatus = document.getElementById('cakeStatus');
   const relight = document.getElementById('relight');
+  const cakeArt = document.getElementById('cakeArt');
+
+  (function drawCake() {
+    const cv = document.getElementById('cakeCanvas');
+    const W = 260, H = 200, dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = W * dpr; cv.height = H * dpr;
+    const c = cv.getContext('2d');
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    let s = 7;
+    const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const ell = (cx, cy, rx, ry, fill) => { c.beginPath(); c.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2); c.fillStyle = fill; c.fill(); };
+    const edgeY = (cx, top, rx, ry, x) => top + ry * Math.sqrt(Math.max(0, 1 - ((x - cx) / rx) ** 2));
+    function sidePath(cx, top, bottom, rx, ry) {
+      c.beginPath(); c.moveTo(cx - rx, top); c.lineTo(cx - rx, bottom);
+      c.ellipse(cx, bottom, rx, ry, 0, Math.PI, 0, true);
+      c.lineTo(cx + rx, top); c.closePath();
+    }
+    function side(cx, top, bottom, rx, ry, mid, edge) {
+      const g = c.createLinearGradient(cx - rx, 0, cx + rx, 0);
+      g.addColorStop(0, edge); g.addColorStop(0.38, mid); g.addColorStop(0.62, mid); g.addColorStop(1, edge);
+      sidePath(cx, top, bottom, rx, ry); c.fillStyle = g; c.fill();
+    }
+    function frosting(cx, top, rx, ry, lip, surface, maxDrip) {
+      ell(cx, top + 3, rx, ry, lip);
+      for (let x = cx - rx + 7; x <= cx + rx - 7; x += 11) {
+        const ey = edgeY(cx, top + 3, rx, ry, x), len = 3 + rnd() * maxDrip, w = 4 + rnd() * 1.5;
+        c.beginPath(); c.moveTo(x - w, ey - 3); c.lineTo(x - w, ey + len);
+        c.arc(x, ey + len, w, Math.PI, 0, true); c.lineTo(x + w, ey - 3); c.closePath();
+        c.fillStyle = lip; c.fill();
+      }
+      ell(cx, top, rx, ry, surface);
+    }
+    // plate
+    ell(130, 191, 121, 9, '#B9A78F');
+    ell(130, 187, 125, 10, '#F1EAE0');
+    // bottom tier: ocean
+    side(130, 120, 182, 104, 12, '#7ADAE5', '#2C9FB6');
+    c.save(); sidePath(130, 120, 182, 104, 12); c.clip();
+    c.strokeStyle = 'rgba(255,255,255,.55)'; c.lineWidth = 2.5;
+    c.beginPath();
+    for (let x = 24; x <= 236; x += 2) { const y = edgeY(130, 176, 104, 12, x) + Math.sin(x / 8) * 2.5; x === 24 ? c.moveTo(x, y) : c.lineTo(x, y); }
+    c.stroke();
+    c.fillStyle = 'rgba(255,255,255,.5)';
+    for (let i = 0; i < 14; i++) { c.beginPath(); c.arc(30 + rnd() * 200, 150 + rnd() * 22, 1 + rnd() * 1.6, 0, Math.PI * 2); c.fill(); }
+    c.restore();
+    for (let x = 30; x <= 230; x += 8) { c.beginPath(); c.arc(x, edgeY(130, 182, 104, 12, x) - 1, 2.6, 0, Math.PI * 2); c.fillStyle = '#FFFFFF'; c.fill(); }
+    frosting(130, 120, 104, 12, '#FFFFFF', '#F4FBFC', 9);
+    const SPR = ['#FF7FA6', '#FFD45E', '#5CC8F0', '#FFFFFF'];
+    for (let i = 0; i < 46; i++) {
+      const a = rnd() * Math.PI * 2, rr = 0.72 + rnd() * 0.26;
+      const x = 130 + Math.cos(a) * 104 * rr, y = 120 + Math.sin(a) * 12 * rr;
+      if (Math.abs(x - 130) < 66 && y < 127) continue;
+      c.save(); c.translate(x, y); c.rotate(rnd() * Math.PI); c.fillStyle = SPR[i % SPR.length];
+      c.fillRect(-2.5, -1, 5, 2); c.restore();
+    }
+    // top tier: sand with pink icing
+    ell(130, 121, 66, 9, 'rgba(60,40,20,.12)');
+    side(130, 62, 118, 64, 8, '#FBE6BC', '#E2B874');
+    c.save(); sidePath(130, 62, 118, 64, 8); c.clip();
+    c.fillStyle = 'rgba(190,140,70,.35)';
+    for (let i = 0; i < 40; i++) { c.beginPath(); c.arc(66 + rnd() * 128, 80 + rnd() * 44, 0.6 + rnd() * 0.9, 0, Math.PI * 2); c.fill(); }
+    c.restore();
+    for (let x = 70; x <= 190; x += 7.5) { c.beginPath(); c.arc(x, edgeY(130, 118, 64, 8, x) - 1, 2.4, 0, Math.PI * 2); c.fillStyle = '#FFFFFF'; c.fill(); }
+    frosting(130, 62, 64, 8, '#FF8FB1', '#FFB4CA', 12);
+  })();
+
   candles.forEach((c, i) => c.addEventListener('click', () => {
     if (c.classList.contains('out')) return;
     c.classList.add('out');
@@ -592,8 +673,9 @@ button { font: inherit; color: inherit; }
       cakeStatus.textContent = 'wish made 💫 hope it comes true';
       relight.hidden = false;
       cakeBox.classList.add('dim');
-      const r = c.getBoundingClientRect();
-      fx.burst(...fx.local(r.left + r.width / 2, r.top), 40);
+      cakeArt.classList.remove('party'); void cakeArt.offsetWidth; cakeArt.classList.add('party');
+      const r = cakeArt.getBoundingClientRect();
+      fx.burst(...fx.local(r.left + r.width / 2, r.top + r.height * 0.4), 44, ['🏐', '🦜', '🎉', '💖', '✨', '🌺']);
     } else {
       cakeStatus.textContent = lit === 1 ? 'one more! 🕯️' : lit + ' candles to go';
     }
@@ -603,6 +685,7 @@ button { font: inherit; color: inherit; }
     cakeStatus.textContent = 'then tap the candles to blow them out';
     relight.hidden = true;
     cakeBox.classList.remove('dim');
+    cakeArt.classList.remove('party');
   });
 
   /* ---------- Card deck ---------- */
