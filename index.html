@@ -84,15 +84,15 @@ button { font: inherit; color: inherit; }
 .cake-box::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 58%, rgba(255, 186, 104, .3), rgba(255, 186, 104, 0) 55%); transition: opacity 1.2s ease; pointer-events: none; }
 .cake-box.dim::before { opacity: 0; }
 .cake-status { position: relative; margin: 0 0 10px; min-height: 1.35em; font-size: 15px; font-weight: 600; color: rgba(255, 255, 255, .85); }
-.cake-art { position: relative; width: 260px; height: 262px; margin: 0 auto; }
+.cake-art { position: relative; width: 260px; height: 268px; margin: 0 auto; transform-origin: 50% 0; }
 .cake-canvas { position: absolute; left: 0; top: 60px; width: 260px; height: 200px; }
-.cake-name { position: absolute; left: 130px; top: 202px; transform: translateX(-50%); z-index: 2; font-family: "Snell Roundhand", "Brush Script MT", "Segoe Script", cursive; font-size: 30px; font-weight: 700; line-height: 1; color: #FFFFFF; text-shadow: 0 1px 2px rgba(0, 60, 80, .45); pointer-events: none; }
+.cake-name { position: absolute; left: 130px; top: 202px; transform: translateX(-50%); z-index: 2; font-family: "Snell Roundhand", "Brush Script MT", "Segoe Script", cursive; font-size: 34px; font-weight: 700; line-height: 1; color: #FFFFFF; text-shadow: 0 1px 2px rgba(0, 60, 80, .45); pointer-events: none; }
 .topper, .deco { position: absolute; line-height: 1; font-family: var(--emoji); pointer-events: none; transform-origin: 50% 100%; }
-.topper.ball { left: 130px; top: 128px; font-size: 44px; z-index: 2; transform: translate(-50%, -94%); animation: wobble 4s ease-in-out infinite; }
-.topper.parrot { left: 214px; top: 184px; font-size: 42px; z-index: 4; transform: translate(-50%, -92%); animation: perch 3.2s ease-in-out infinite; }
-.deco.palm { left: 44px; top: 184px; font-size: 38px; z-index: 1; transform: translate(-50%, -92%) rotate(-6deg); }
-.deco.shell { left: 34px; top: 258px; font-size: 20px; z-index: 4; transform: translate(-50%, -100%) rotate(-12deg); }
-.deco.flower { left: 228px; top: 258px; font-size: 22px; z-index: 4; transform: translate(-50%, -100%) rotate(10deg); }
+.topper.ball { left: 130px; top: 126px; font-size: 62px; z-index: 2; transform: translate(-50%, -94%); animation: wobble 4s ease-in-out infinite; }
+.topper.parrot { left: 220px; top: 188px; font-size: 66px; z-index: 4; transform: translate(-50%, -92%); animation: perch 3.2s ease-in-out infinite; }
+.deco.palm { left: 38px; top: 188px; font-size: 60px; z-index: 1; transform: translate(-50%, -92%) rotate(-6deg); }
+.deco.shell { left: 30px; top: 266px; font-size: 32px; z-index: 4; transform: translate(-50%, -100%) rotate(-12deg); }
+.deco.flower { left: 232px; top: 266px; font-size: 34px; z-index: 4; transform: translate(-50%, -100%) rotate(10deg); }
 @keyframes wobble { 0%, 100% { transform: translate(-50%, -94%) rotate(-4deg); } 50% { transform: translate(-50%, -94%) rotate(4deg); } }
 @keyframes perch { 0%, 70%, 100% { transform: translate(-50%, -92%) rotate(0); } 78% { transform: translate(-50%, -92%) rotate(-10deg); } 86% { transform: translate(-50%, -92%) rotate(6deg); } }
 @keyframes hop { 0%, 100% { transform: translate(-50%, -92%); } 40% { transform: translate(-50%, -150%) rotate(-8deg); } }
@@ -221,11 +221,11 @@ button { font: inherit; color: inherit; }
             <canvas class="cake-canvas" id="cakeCanvas" aria-hidden="true"></canvas>
             <span class="deco palm" aria-hidden="true">🌴</span>
             <span class="cake-name" aria-hidden="true">Amanda</span>
-            <button class="candle back" type="button" aria-label="Blow out candle 1" style="left: 80px; top: 42px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
-            <button class="candle back" type="button" aria-label="Blow out candle 4" style="left: 180px; top: 42px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle back" type="button" aria-label="Blow out candle 1" style="left: 74px; top: 42px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle back" type="button" aria-label="Blow out candle 4" style="left: 186px; top: 42px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
             <span class="topper ball" aria-hidden="true">🏐</span>
-            <button class="candle front" type="button" aria-label="Blow out candle 2" style="left: 104px; top: 47px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
-            <button class="candle front" type="button" aria-label="Blow out candle 3" style="left: 156px; top: 47px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle front" type="button" aria-label="Blow out candle 2" style="left: 98px; top: 47px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+            <button class="candle front" type="button" aria-label="Blow out candle 3" style="left: 162px; top: 47px;"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
             <span class="topper parrot" aria-hidden="true">🦜</span>
             <span class="deco shell" aria-hidden="true">🐚</span>
             <span class="deco flower" aria-hidden="true">🌺</span>
@@ -599,6 +599,16 @@ button { font: inherit; color: inherit; }
   const cakeStatus = document.getElementById('cakeStatus');
   const relight = document.getElementById('relight');
   const cakeArt = document.getElementById('cakeArt');
+  const deckEl = document.getElementById('deck');
+  function fitCake() {
+    const byWidth = (cakeBox.clientWidth - 8) / 260;
+    const byHeight = (deckEl.clientHeight - 200) / 268;
+    const k = Math.max(0.75, Math.min(1.25, byWidth, byHeight));
+    cakeArt.style.transform = 'scale(' + k + ')';
+    cakeArt.style.marginBottom = (268 * (k - 1)) + 'px';
+  }
+  if ('ResizeObserver' in window) new ResizeObserver(fitCake).observe(cakeBox);
+  fitCake();
 
   (function drawCake() {
     const cv = document.getElementById('cakeCanvas');
