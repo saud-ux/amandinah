@@ -99,7 +99,6 @@ button { font: inherit; color: inherit; }
 .card-msg { padding: 26px 22px 22px; }
 .msg-text { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.42; }
 .from { margin: 14px 0 0; font-size: 17px; font-weight: 700; color: var(--pink); }
-.card-msg .pill { margin-top: 18px; }
 
 /* ---------- Bottom navigation ---------- */
 .nav { position: absolute; left: 0; right: 0; bottom: 44px; display: flex; align-items: center; justify-content: center; gap: 18px; }
@@ -190,7 +189,6 @@ button { font: inherit; color: inherit; }
       <article class="card card-msg" data-rot="-1" id="card-msg">
         <p class="msg-text">Happy Birthday, Amanda! 🎉💖 Wishing the happiest birthday to the sweetest and cutest person! I honestly love chatting with you, I hope this year brings you all the happiness and sweet moments you deserve! ✨🎂</p>
         <p class="from">Saud</p>
-        <button class="pill" type="button" id="again">start again ↺</button>
       </article>
     </div>
 
@@ -496,51 +494,22 @@ button { font: inherit; color: inherit; }
     return { open, close, get isOpen() { return !panel.hidden; } };
   })();
 
-  /* ---------- Birthday tune ---------- */
-  let actx = null;
-  function audio() {
-    const AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return null;
-    if (!actx) actx = new AC();
-    if (actx.state === 'suspended') actx.resume();
-    return actx;
-  }
-  const NOTE = { G4: 392, A4: 440, B4: 493.88, C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99 };
-  const MELODY = [
-    ['G4', .75], ['G4', .25], ['A4', 1], ['G4', 1], ['C5', 1], ['B4', 2],
-    ['G4', .75], ['G4', .25], ['A4', 1], ['G4', 1], ['D5', 1], ['C5', 2],
-    ['G4', .75], ['G4', .25], ['G5', 1], ['E5', 1], ['C5', 1], ['B4', 1], ['A4', 2],
-    ['F5', .75], ['F5', .25], ['E5', 1], ['C5', 1], ['D5', 1], ['C5', 3],
-  ];
+  /* ---------- Birthday song ---------- */
   const song = (() => {
     const btn = document.getElementById('songBtn');
-    let master = null, endTimer = 0;
+    const track = new Audio('audio/happy-birthday.mp3');
+    track.preload = 'none';
     const ui = (playing) => { btn.textContent = playing ? '⏹ stop the song' : '🎵 play happy birthday'; };
-    function stop() {
-      clearTimeout(endTimer);
-      if (master && actx) { master.gain.setTargetAtTime(0, actx.currentTime, 0.04); const m = master; setTimeout(() => m.disconnect(), 300); }
-      master = null; ui(false);
-    }
-    function play() {
-      const c = audio(); if (!c) return;
-      master = c.createGain(); master.gain.value = 0.9; master.connect(c.destination);
-      const beat = 0.42; let t = c.currentTime + 0.08;
-      for (const [n, dur] of MELODY) {
-        const f = NOTE[n], len = dur * beat;
-        [[f, 'sine', 0.22], [f * 2, 'triangle', 0.05]].forEach(([fr, type, vol]) => {
-          const o = c.createOscillator(), g = c.createGain();
-          o.type = type; o.frequency.value = fr;
-          g.gain.setValueAtTime(0.0001, t);
-          g.gain.exponentialRampToValueAtTime(vol, t + 0.015);
-          g.gain.exponentialRampToValueAtTime(0.0001, t + len * 0.95 + 0.25);
-          o.connect(g); g.connect(master); o.start(t); o.stop(t + len + 0.3);
-        });
-        t += len;
-      }
-      ui(true);
-      endTimer = setTimeout(() => { master = null; ui(false); }, (t - c.currentTime) * 1000 + 300);
-    }
-    btn.addEventListener('click', () => { if (master) stop(); else play(); });
+    track.addEventListener('play', () => ui(true));
+    track.addEventListener('pause', () => ui(false));
+    track.addEventListener('ended', () => ui(false));
+    function stop() { track.pause(); track.currentTime = 0; ui(false); }
+    btn.addEventListener('click', () => {
+      if (!track.paused) { stop(); return; }
+      track.currentTime = 0;
+      const p = track.play();
+      if (p && p.catch) p.catch(() => ui(false));
+    });
     return { stop };
   })();
 
@@ -637,7 +606,6 @@ button { font: inherit; color: inherit; }
 
   prevBtn.addEventListener('click', prev);
   nextBtn.addEventListener('click', () => next(-1));
-  document.getElementById('again').addEventListener('click', () => { cards.forEach((c) => { delete c.dataset.dir; }); go(0); });
   document.getElementById('playBtn').addEventListener('click', () => game.open());
   document.getElementById('closeGame').addEventListener('click', () => game.close());
   document.getElementById('afterGame').addEventListener('click', () => { game.close(); setTimeout(() => next(-1), reduce ? 0 : 250); });

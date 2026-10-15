@@ -9,6 +9,6 @@ A birthday surprise for Amanda (Amandinah), 15 October.
 3. A cake card with the blue cloud cake photo: tap the cake to make a wish, or play the song.
 4. Saud's message.
 
-`photos/` holds the photos the page uses.
+`photos/` holds the photos the page uses, and `audio/happy-birthday.mp3` is the birthday song.
 
 To put it online, enable GitHub Pages for this repo (Settings > Pages > deploy from the branch, root folder).
