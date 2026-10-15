@@ -6,7 +6,7 @@ A birthday surprise for Amanda (Amandinah), 15 October.
 
 1. Five photo cards (her selfie, the swing, the pacifier, the balcony, the mirror).
 2. A volleyball card that opens a full-screen beach game: keep the ball up for 15 touches.
-3. A cake card: play the song, make a wish, tap the candles to blow them out.
+3. A cake card with the blue cloud cake photo: tap the cake to make a wish, or play the song.
 4. Saud's message.
 
 `photos/` holds the photos the page uses.
