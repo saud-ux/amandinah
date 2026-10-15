@@ -309,27 +309,84 @@ button { font: inherit; color: inherit; }
   const BALL = new Image();
   BALL.src = 'photos/ball.png';
   function drawBeach(ctx, W, H, d, t, ball, floorY) {
+    // Santos bay, São Paulo: island on the left, Guarujá hills across the water, ships waiting for the port
     const hz = H * 0.47, shore = H * 0.62;
+    let seed = 3;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+    // sky, sun and clouds
     let g = ctx.createLinearGradient(0, 0, 0, hz);
-    g.addColorStop(0, '#3FA9E6'); g.addColorStop(0.65, '#9AD8F2'); g.addColorStop(1, '#FFE3BC');
+    g.addColorStop(0, '#4BA8E0'); g.addColorStop(0.7, '#A6DBF0'); g.addColorStop(1, '#F4E6CC');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, hz);
-    const sx = W * 0.76, sy = hz - H * 0.05;
-    const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, H * 0.2);
-    sg.addColorStop(0, 'rgba(255,246,214,.95)'); sg.addColorStop(0.25, 'rgba(255,230,170,.55)'); sg.addColorStop(1, 'rgba(255,220,150,0)');
+    const sx = W * 0.32, sy = hz - H * 0.17;
+    const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, H * 0.18);
+    sg.addColorStop(0, 'rgba(255,248,220,.95)'); sg.addColorStop(0.3, 'rgba(255,236,180,.45)'); sg.addColorStop(1, 'rgba(255,230,170,0)');
     ctx.fillStyle = sg; ctx.fillRect(0, 0, W, hz);
-    ctx.fillStyle = '#FFF8E1'; ctx.beginPath(); ctx.arc(sx, sy, H * 0.032, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#FFF9E6'; ctx.beginPath(); ctx.arc(sx, sy, H * 0.03, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = 'rgba(255,255,255,.85)';
     d.clouds.forEach((c) => cloud(ctx, c.x, c.y, c.w));
+
+    // Serra do Mar hills on the Guarujá side
+    const hill = (pts, color) => {
+      ctx.beginPath(); ctx.moveTo(pts[0][0] * W, hz); ctx.lineTo(pts[0][0] * W, hz - pts[0][1] * H);
+      for (let i = 1; i < pts.length; i++) {
+        const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], mx = (x0 + x1) / 2;
+        ctx.bezierCurveTo(mx * W, hz - y0 * H, mx * W, hz - y1 * H, x1 * W, hz - y1 * H);
+      }
+      ctx.lineTo(pts[pts.length - 1][0] * W, hz); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
+    };
+    hill([[0.46, 0], [0.58, 0.06], [0.7, 0.115], [0.82, 0.085], [0.93, 0.135], [1.02, 0.1]], '#97BCA7');
+    hill([[0.52, 0], [0.63, 0.04], [0.74, 0.072], [0.86, 0.05], [0.96, 0.078], [1.02, 0.06]], '#5E8E71');
+    // white apartment buildings along the shore at the foot of the hills
+    for (let bx = W * 0.57; bx < W;) {
+      const bw = W * (0.012 + rnd() * 0.012), bh = H * (0.012 + rnd() * 0.032);
+      ctx.fillStyle = rnd() < 0.5 ? '#F3EFE7' : '#E2DCD1'; ctx.fillRect(bx, hz - bh, bw, bh);
+      ctx.fillStyle = 'rgba(70,80,95,.22)'; ctx.fillRect(bx + bw * 0.62, hz - bh, bw * 0.38, bh);
+      bx += bw + W * 0.003;
+    }
+
+    // sea
     g = ctx.createLinearGradient(0, hz, 0, shore);
-    g.addColorStop(0, '#2FB4C8'); g.addColorStop(1, '#1688A3');
+    g.addColorStop(0, '#3C98B0'); g.addColorStop(1, '#1D7C93');
     ctx.fillStyle = g; ctx.fillRect(0, hz, W, shore - hz);
-    ctx.fillStyle = 'rgba(255,248,225,.75)';
-    for (let i = 0; i < 4; i++) { const w = W * (0.16 - i * 0.035); ctx.fillRect(sx - w / 2, hz + 6 + i * 9, w, 2); }
+    ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(0, hz, W, 1.5);
+
+    // cargo ships waiting to enter the port of Santos
+    const ship = (x, k, c1, c2) => {
+      const y = hz + 1.5;
+      ctx.fillStyle = '#2E3440';
+      ctx.beginPath(); ctx.moveTo(x, y - 3 * k); ctx.lineTo(x + 30 * k, y - 3 * k); ctx.lineTo(x + 27 * k, y); ctx.lineTo(x + 2 * k, y); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = c1; ctx.fillRect(x + 4 * k, y - 6 * k, 8 * k, 3 * k);
+      ctx.fillStyle = c2; ctx.fillRect(x + 12.5 * k, y - 6 * k, 9 * k, 3 * k);
+      ctx.fillStyle = '#F4F4F4'; ctx.fillRect(x + 23 * k, y - 8.5 * k, 4 * k, 5.5 * k);
+    };
+    const k = W / 390;
+    ship(W * 0.36, k, '#C0392B', '#2E6DB4');
+    ship(W * 0.45, k * 0.8, '#E67E22', '#2C8C5A');
+    ship(W * 0.53, k * 0.65, '#2E6DB4', '#C0392B');
+
+    // the island in the bay (Ilha Urubuqueçaba)
+    const ib = hz + H * 0.02;
+    ctx.fillStyle = '#7E7F78';
+    ctx.beginPath(); ctx.ellipse(W * 0.155, ib, W * 0.13, H * 0.009, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(W * 0.03, ib);
+    ctx.bezierCurveTo(W * 0.07, ib - H * 0.05, W * 0.12, ib - H * 0.085, W * 0.16, ib - H * 0.08);
+    ctx.bezierCurveTo(W * 0.21, ib - H * 0.075, W * 0.25, ib - H * 0.03, W * 0.28, ib);
+    ctx.closePath(); ctx.fillStyle = '#3F7A55'; ctx.fill();
+    ctx.fillStyle = 'rgba(150,200,130,.35)';
+    ctx.beginPath(); ctx.ellipse(W * 0.13, ib - H * 0.058, W * 0.045, H * 0.014, -0.3, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.fillRect(W * 0.03, ib + H * 0.007, W * 0.25, 1.5);
+
+    // sun on the water and glints
+    ctx.fillStyle = 'rgba(255,248,225,.7)';
+    for (let i = 0; i < 4; i++) { const w = W * (0.12 - i * 0.025); ctx.fillRect(sx - w / 2, hz + H * 0.04 + i * 8, w, 2); }
     ctx.fillStyle = 'rgba(255,255,255,.55)';
     d.glints.forEach((p) => { ctx.globalAlpha = 0.3 + 0.7 * Math.abs(Math.sin(p.ph + t * 0.0015)); ctx.fillRect(p.x, p.y, p.w, 1.5); });
     ctx.globalAlpha = 1;
+
+    // sand and the wave line
     g = ctx.createLinearGradient(0, shore, 0, H);
-    g.addColorStop(0, '#E9CF98'); g.addColorStop(0.12, '#F5DEAC'); g.addColorStop(1, '#EDC98A');
+    g.addColorStop(0, '#E2CFA4'); g.addColorStop(0.12, '#F1E2BF'); g.addColorStop(1, '#E8D3A3');
     ctx.fillStyle = g;
     const wave = Math.sin(t * 0.0012) * 4;
     ctx.beginPath(); ctx.moveTo(0, shore);
@@ -338,8 +395,25 @@ button { font: inherit; color: inherit; }
     ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(0, shore);
     for (let x = 0; x <= W + 40; x += 40) ctx.quadraticCurveTo(x + 20, shore + ((x / 40) % 2 ? 7 : -3) + wave, x + 40, shore);
     ctx.stroke();
-    ctx.fillStyle = 'rgba(176,132,70,.28)';
+    ctx.fillStyle = 'rgba(176,132,70,.24)';
     d.specks.forEach((p) => { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill(); });
+
+    // beach umbrellas
+    const umbrella = (x, base, rad, colors) => {
+      ctx.fillStyle = 'rgba(90,60,20,.16)';
+      ctx.beginPath(); ctx.ellipse(x + rad * 0.35, base + 2, rad * 0.95, rad * 0.17, 0, 0, Math.PI * 2); ctx.fill();
+      const cx = x + rad * 0.15, cy = base - rad * 1.3;
+      ctx.strokeStyle = '#8A7A66'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x, base); ctx.lineTo(cx, cy); ctx.stroke();
+      for (let i = 0; i < colors.length; i++) {
+        const a0 = Math.PI + (i / colors.length) * Math.PI, a1 = Math.PI + ((i + 1) / colors.length) * Math.PI;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, rad, a0, a1); ctx.closePath(); ctx.fillStyle = colors[i]; ctx.fill();
+      }
+      ctx.fillStyle = 'rgba(0,0,0,.08)'; ctx.fillRect(cx - rad, cy - 1, rad * 2, 2);
+    };
+    umbrella(W * 0.13, H * 0.705, W * 0.075, ['#FFD23F', '#1E9E5A', '#FFD23F', '#1E9E5A']);
+    umbrella(W * 0.85, H * 0.7, W * 0.068, ['#E8336F', '#FFFFFF', '#E8336F', '#FFFFFF']);
+
+    // volleyball net
     const netTop = H * 0.6, netH = H * 0.075, base = H * 0.74, p1 = W * 0.07, p2 = W * 0.93;
     ctx.fillStyle = 'rgba(80,60,30,.18)';
     ctx.beginPath(); ctx.ellipse(W * 0.5, base + 4, W * 0.46, 6, 0, 0, Math.PI * 2); ctx.fill();
