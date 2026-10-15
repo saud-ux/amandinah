@@ -15,6 +15,8 @@ A birthday gift for Amanda (Amandinah), 15 October.
 9. Carta do editor from Saud
 10. Finale with confetti
 
-`photos/` holds the photos the page uses.
+`en.html` is the same page translated fully into English.
+
+`photos/` holds the photos the pages use.
 
 To put it online, enable GitHub Pages for this repo (Settings > Pages > deploy from the branch, root folder).
