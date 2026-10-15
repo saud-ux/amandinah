@@ -7,13 +7,16 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="A little birthday story for Amanda.">
 <style>
-/* Layout: a phone story, the way a friend would make one. Full-screen photos, plain caption bars, system font, emoji confetti. One deliberate dark look. */
+/* Layout: a phone story, the way a friend would make one. Full-screen photos, plain caption bars, stickers, system font, emoji confetti. Two playable story pages: volleyball and the cake. One deliberate dark look. */
 :root {
   --outer: #0D0B0B;
   --text: #FFFFFF;
   --caption: rgba(0, 0, 0, .55);
-  --soft: rgba(255, 255, 255, .78);
+  --soft: rgba(255, 255, 255, .8);
+  --sticker: #FFFFFF;
+  --sticker-ink: #141414;
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --emoji: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
   color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -40,23 +43,21 @@ button { font: inherit; color: inherit; }
   .stage { width: auto; height: min(calc(100% - 40px), 880px); aspect-ratio: 9 / 16; border-radius: 16px; }
 }
 .blur { position: absolute; top: -40px; left: -40px; width: calc(100% + 80px); height: calc(100% + 80px); max-width: none; object-fit: cover; filter: blur(26px) brightness(.5) saturate(1.15); }
-
-/* Opening */
-.open { position: absolute; inset: 0; z-index: 10; display: grid; place-items: center; text-align: center; transition: opacity .45s ease; }
-.open.bye { opacity: 0; }
-.open-inner {
-  position: relative;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
+.gutter {
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
+
+/* ---------- Opening ---------- */
+.open { position: absolute; inset: 0; z-index: 10; display: grid; place-items: center; text-align: center; transition: opacity .45s ease; }
+.open.bye { opacity: 0; }
+.open-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .open-small { margin: 0; font-size: 15px; color: var(--soft); }
 .open h1 { margin: 0; font-size: 40px; font-weight: 700; letter-spacing: -.01em; }
 .gift {
   appearance: none; border: 0; background: none; cursor: pointer;
   width: 160px; height: 160px; margin-top: 18px;
-  font-size: 112px; line-height: 160px;
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 112px; line-height: 160px; font-family: var(--emoji);
   animation: wiggle 1.8s ease-in-out infinite;
   transition: transform .35s ease, opacity .35s ease;
 }
@@ -70,19 +71,27 @@ button { font: inherit; color: inherit; }
 }
 .open-tap { margin: 6px 0 0; font-size: 15px; font-weight: 600; color: var(--soft); }
 
-/* Story */
+/* ---------- Story chrome ---------- */
 .story { position: absolute; inset: 0; }
-.slide { position: absolute; inset: 0; margin: 0; opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s linear .25s; }
+.slide { position: absolute; inset: 0; margin: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s linear .25s; }
 .slide.on { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
-.slide > img:not(.blur) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.slide > .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.slide.on > .photo { animation: zoom 6s ease-out both; }
+@keyframes zoom { from { transform: scale(1.07); } to { transform: scale(1); } }
 .slide figcaption {
   position: absolute; left: 0; right: 0; top: 64%;
-  padding: 9px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px));
+  padding-top: 9px; padding-bottom: 10px;
   background: var(--caption);
   text-align: center; font-size: 18px; font-weight: 500; line-height: 1.3;
 }
+.sticker {
+  position: absolute; z-index: 2;
+  padding: 8px 14px; border-radius: 12px;
+  background: var(--sticker); color: var(--sticker-ink);
+  font-size: 17px; font-weight: 800; letter-spacing: .01em;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+}
 .shade { position: absolute; left: 0; right: 0; top: 0; height: 120px; background: linear-gradient(rgba(0, 0, 0, .38), rgba(0, 0, 0, 0)); pointer-events: none; z-index: 4; }
-
 .top {
   position: absolute; left: 0; right: 0; top: 0; z-index: 5; pointer-events: none;
   padding-top: 10px;
@@ -97,6 +106,70 @@ button { font: inherit; color: inherit; }
 .who b { font-size: 14px; font-weight: 600; }
 .who span { font-size: 13px; color: var(--soft); }
 
+/* Bottom controls on playable pages */
+.controls {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding-top: 12px; padding-bottom: 18px;
+}
+.chip {
+  appearance: none; cursor: pointer;
+  min-height: 44px; padding: 0 18px; border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, .75); background: rgba(0, 0, 0, .28);
+  font-size: 15px; font-weight: 600;
+}
+.chip.solid { border-color: #FFFFFF; background: #FFFFFF; color: #141414; }
+.chip.dark { border-color: rgba(20, 20, 20, .5); background: rgba(255, 255, 255, .55); color: #141414; }
+.chip.dark.solid { border-color: #141414; background: #141414; color: #FFFFFF; }
+
+/* ---------- Volleyball ---------- */
+#court { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.game-hud { position: absolute; left: 0; right: 0; top: 64px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; pointer-events: none; }
+.score { padding: 8px 16px; border-radius: 14px; background: var(--sticker); color: var(--sticker-ink); font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; box-shadow: 0 6px 16px rgba(0, 0, 0, .2); }
+.score small { font-size: 15px; font-weight: 700; color: #6B6B6B; }
+.game-msg { max-width: 92%; padding: 8px 14px; border-radius: 10px; background: var(--caption); font-size: 17px; font-weight: 600; text-align: center; }
+.best { font-size: 13px; font-weight: 600; color: #FFFFFF; text-shadow: 0 1px 3px rgba(0, 0, 0, .45); }
+
+/* ---------- Cake ---------- */
+.cake-slide { background: radial-gradient(circle at 50% 58%, #4A2A20 0%, #241512 46%, #120B0A 100%); }
+.cake-slide::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 56%, rgba(255, 186, 104, .28), rgba(255, 186, 104, 0) 50%); transition: opacity 1.2s ease; pointer-events: none; }
+.cake-slide.dim::before { opacity: 0; }
+.cake-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-top: 64px; padding-bottom: 84px; }
+.cake-title { margin: 0; font-size: 28px; font-weight: 800; }
+.cake-status { margin: 8px 0 0; min-height: 1.4em; font-size: 16px; color: var(--soft); }
+.cake-zone { margin-top: 26px; display: flex; flex-direction: column; align-items: center; }
+.candles { position: relative; z-index: 2; display: flex; gap: 6px; margin-bottom: -1px; }
+.candle { appearance: none; border: 0; background: none; padding: 0; cursor: pointer; position: relative; width: 44px; height: 104px; }
+.candle .stick { position: absolute; bottom: 0; left: 50%; width: 11px; height: 48px; transform: translateX(-50%); border-radius: 3px; background: repeating-linear-gradient(140deg, #FFFFFF 0 5px, #FF8FB1 5px 10px); }
+.candle .wick { position: absolute; bottom: 48px; left: 50%; width: 1.5px; height: 7px; transform: translateX(-50%); background: #3A2A24; }
+.candle .flame {
+  position: absolute; bottom: 53px; left: 50%; width: 14px; height: 26px; margin-left: -7px;
+  border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
+  background: radial-gradient(ellipse at 50% 72%, #FFF8E2 0 22%, #FFD27A 42%, #FF9A45 72%, rgba(255, 120, 40, 0) 100%);
+  box-shadow: 0 0 18px 7px rgba(255, 186, 104, .45);
+  transform-origin: 50% 90%;
+  animation: flicker 1.1s ease-in-out infinite alternate;
+  transition: opacity .25s ease, transform .3s ease;
+}
+.candle:nth-child(2) .flame { animation-delay: -.3s; }
+.candle:nth-child(3) .flame { animation-delay: -.6s; }
+.candle:nth-child(4) .flame { animation-delay: -.2s; }
+.candle:nth-child(5) .flame { animation-delay: -.8s; }
+@keyframes flicker { 0% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.06, .94) rotate(2deg); } 100% { transform: scale(.95, 1.05) rotate(-1deg); } }
+.candle.out .flame { opacity: 0; transform: scale(.2); animation: none; }
+.candle .smoke { position: absolute; bottom: 52px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: rgba(214, 204, 196, .55); filter: blur(3px); opacity: 0; pointer-events: none; }
+.candle.out .smoke { animation: smoke 1.6s ease-out forwards; }
+@keyframes smoke { 0% { opacity: .7; transform: translateY(0) scale(.6); } 100% { opacity: 0; transform: translateY(-48px) scale(1.8); } }
+.cake { display: flex; flex-direction: column; align-items: center; }
+.tier { position: relative; }
+.tier.top { width: 176px; height: 52px; border-radius: 10px 10px 4px 4px;
+  background: radial-gradient(circle at 50% 0, #FF8FB1 9px, transparent 9.5px) 0 0 / 19px 16px repeat-x, linear-gradient(#FF8FB1, #FF8FB1) 0 0 / 100% 6px no-repeat, #FFF6EE; }
+.tier.bottom { width: 244px; height: 68px; border-radius: 12px 12px 5px 5px;
+  background: radial-gradient(circle, #F4C95D 0 3.5px, transparent 4px) 0 100% / 16px 12px repeat-x, radial-gradient(circle at 50% 0, #E8508A 10px, transparent 10.5px) 0 0 / 21px 17px repeat-x, linear-gradient(#E8508A, #E8508A) 0 0 / 100% 6px no-repeat, #FFF6EE; }
+.plate { width: 296px; max-width: 86vw; height: 11px; margin-top: -2px; border-radius: 50%; background: #E9D9C4; box-shadow: 0 6px 0 -2px #B9A388; }
+.cake-actions { margin-top: 26px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+/* ---------- Message ---------- */
 .msg-inner {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; justify-content: center; gap: 18px;
@@ -106,17 +179,12 @@ button { font: inherit; color: inherit; }
 }
 .msg-text { margin: 0; font-size: 25px; font-weight: 700; line-height: 1.38; letter-spacing: -.005em; text-shadow: 0 1px 8px rgba(0, 0, 0, .35); }
 .from { margin: 0; font-size: 18px; font-weight: 600; color: var(--soft); }
-.again {
-  appearance: none; cursor: pointer; align-self: flex-start;
-  margin-top: 10px; min-height: 44px; padding: 0 18px;
-  border: 1.5px solid rgba(255, 255, 255, .7); border-radius: 999px; background: rgba(255, 255, 255, .08);
-  font-size: 15px; font-weight: 600;
-}
+.again { align-self: flex-start; margin-top: 10px; }
 
 #fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 20; }
 
 @media (prefers-reduced-motion: reduce) {
-  .gift { animation: none; }
+  .gift, .slide.on > .photo, .candle .flame { animation: none !important; }
   .open, .slide, .slide.on, .gift { transition-duration: .01s; }
 }
 </style>
@@ -127,7 +195,7 @@ button { font: inherit; color: inherit; }
 
     <section class="open" id="open" aria-label="Birthday surprise">
       <img class="blur" src="photos/cover.jpg" alt="">
-      <div class="open-inner">
+      <div class="open-inner gutter">
         <p class="open-small">a little something for you</p>
         <h1>Amanda 💖</h1>
         <button class="gift" id="giftBtn" type="button" aria-label="Open your birthday surprise">🎁</button>
@@ -137,32 +205,72 @@ button { font: inherit; color: inherit; }
 
     <div class="story" id="story" hidden>
       <div class="slides">
-        <figure class="slide">
-          <img src="photos/swing.jpg" alt="Baby Amanda with curly hair in a colorful swing" style="object-position: 50% 45%;">
-          <figcaption>where it all started 🥹</figcaption>
+        <figure class="slide" data-kind="photo">
+          <img class="photo" src="photos/swing.jpg" alt="Baby Amanda with curly hair in a colorful swing" style="object-position: 50% 45%;">
+          <figcaption class="gutter">where it all started 🥹</figcaption>
         </figure>
-        <figure class="slide">
-          <img src="photos/chupeta.jpg" alt="Little Amanda in a red jacket with a pacifier" style="object-position: 22% 50%;">
-          <figcaption>the pacifier era 😂</figcaption>
+        <figure class="slide" data-kind="photo">
+          <img class="photo" src="photos/chupeta.jpg" alt="Little Amanda in a red jacket with a pacifier" style="object-position: 22% 50%;">
+          <figcaption class="gutter">the pacifier era 😂</figcaption>
         </figure>
-        <figure class="slide">
-          <img src="photos/cover.jpg" alt="Amanda today, selfie with long curly hair" style="object-position: 50% 45%;">
-          <figcaption>and now 💖</figcaption>
+        <figure class="slide" data-kind="photo">
+          <img class="photo" src="photos/cover.jpg" alt="Amanda today, selfie with long curly hair" style="object-position: 50% 45%;">
+          <span class="sticker" style="top: 92px; left: 18px; transform: rotate(-7deg);">15.10 ♎ libra</span>
+          <figcaption class="gutter">and now 💖</figcaption>
         </figure>
-        <figure class="slide">
-          <img src="photos/balcony.jpg" alt="Amanda in a cap on a balcony" style="object-position: 30% 50%;">
-          <figcaption>beach girl ☀️🏐</figcaption>
+        <figure class="slide" data-kind="photo">
+          <img class="photo" src="photos/balcony.jpg" alt="Amanda in a cap on a balcony" style="object-position: 30% 50%;">
+          <figcaption class="gutter">beach girl ☀️🏐</figcaption>
         </figure>
-        <figure class="slide">
-          <img src="photos/mirror.jpg" alt="Amanda taking a mirror selfie" style="object-position: 40% 50%;">
-          <figcaption>always ready for the beach 🌊</figcaption>
+        <figure class="slide" data-kind="photo">
+          <img class="photo" src="photos/mirror.jpg" alt="Amanda taking a mirror selfie" style="object-position: 40% 50%;">
+          <figcaption class="gutter">always ready for the beach 🌊</figcaption>
         </figure>
-        <section class="slide" aria-label="Message">
+
+        <section class="slide" data-kind="play" id="s-game" aria-label="Volleyball game">
+          <canvas id="court" tabindex="0" aria-label="Volleyball game. Tap the ball, or press Space, to keep it in the air."></canvas>
+          <div class="game-hud">
+            <div class="score" aria-live="polite">🏐 <span id="touches">0</span> <small>/ 15</small></div>
+            <div class="game-msg" id="gameMsg">your turn! tap the ball to serve 🏐</div>
+            <div class="best">best: <span id="best">0</span></div>
+          </div>
+          <div class="controls gutter">
+            <button class="chip dark" type="button" data-prev>‹ back</button>
+            <button class="chip dark solid" type="button" data-next id="gameNext">skip ›</button>
+          </div>
+        </section>
+
+        <section class="slide cake-slide" data-kind="play" id="s-cake" aria-label="Birthday cake">
+          <div class="cake-inner gutter">
+            <p class="cake-title">make a wish ✨</p>
+            <p class="cake-status" id="cakeStatus" aria-live="polite">then tap the candles to blow them out</p>
+            <div class="cake-zone">
+              <div class="candles">
+                <button class="candle" type="button" aria-label="Blow out candle 1"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+                <button class="candle" type="button" aria-label="Blow out candle 2"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+                <button class="candle" type="button" aria-label="Blow out candle 3"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+                <button class="candle" type="button" aria-label="Blow out candle 4"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+                <button class="candle" type="button" aria-label="Blow out candle 5"><span class="stick"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span></button>
+              </div>
+              <div class="cake" aria-hidden="true"><div class="tier top"></div><div class="tier bottom"></div><div class="plate"></div></div>
+            </div>
+            <div class="cake-actions">
+              <button class="chip" type="button" id="songBtn">🎵 play happy birthday</button>
+              <button class="chip" type="button" id="relight" hidden>light them again</button>
+            </div>
+          </div>
+          <div class="controls gutter">
+            <button class="chip" type="button" data-prev>‹ back</button>
+            <button class="chip solid" type="button" data-next id="cakeNext">skip ›</button>
+          </div>
+        </section>
+
+        <section class="slide" data-kind="end" aria-label="Message">
           <img class="blur" src="photos/cover.jpg" alt="">
           <div class="msg-inner">
             <p class="msg-text">Happy Birthday, Amanda! 🎉💖 Wishing the happiest birthday to the sweetest and cutest person! I honestly love chatting with you, I hope this year brings you all the happiness and sweet moments you deserve! ✨🎂</p>
             <p class="from">— Saud</p>
-            <button class="again" id="again" type="button">watch again ↺</button>
+            <button class="chip again" id="again" type="button">watch again ↺</button>
           </div>
         </section>
       </div>
@@ -186,7 +294,6 @@ button { font: inherit; color: inherit; }
   const fx = (() => {
     const cv = document.getElementById('fx');
     const ctx = cv.getContext('2d');
-    const EMOJI = ['🎉', '💖', '✨', '🎂', '🎈', '💕'];
     const FONT = '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
     let parts = [], running = false, W = 0, H = 0, last = 0;
     function size() {
@@ -196,21 +303,22 @@ button { font: inherit; color: inherit; }
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-    const pick = () => EMOJI[Math.floor(Math.random() * EMOJI.length)];
+    const pick = (set) => set[Math.floor(Math.random() * set.length)];
+    const PARTY = ['🎉', '💖', '✨', '🎂', '🎈', '💕'];
     function run() { if (!running) { running = true; last = performance.now(); requestAnimationFrame(tick); } }
-    function rain(n) {
+    function rain(n, set) {
       n = reduce ? 10 : (n || 36);
       for (let i = 0; i < n; i++) {
         parts.push({ x: Math.random() * W, y: -30 - Math.random() * H * 0.9, vx: (Math.random() - 0.5) * 20, vy: 120 + Math.random() * 150,
-          g: 0, s: 20 + Math.random() * 18, e: pick(), r: (Math.random() - 0.5) * 0.6, vr: (Math.random() - 0.5) * 1.5, ph: Math.random() * 6 });
+          g: 0, s: 20 + Math.random() * 18, e: pick(set || PARTY), r: (Math.random() - 0.5) * 0.6, vr: (Math.random() - 0.5) * 1.5, ph: Math.random() * 6 });
       }
       run();
     }
-    function burst(x, y, n) {
+    function burst(x, y, n, set) {
       n = reduce ? 10 : (n || 34);
       for (let i = 0; i < n; i++) {
         const a = Math.random() * Math.PI * 2, v = 220 + Math.random() * 380;
-        parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 200, g: 700, s: 22 + Math.random() * 20, e: pick(),
+        parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 200, g: 700, s: 22 + Math.random() * 20, e: pick(set || PARTY),
           r: (Math.random() - 0.5) * 0.6, vr: (Math.random() - 0.5) * 3, ph: Math.random() * 6 });
       }
       run();
@@ -233,7 +341,277 @@ button { font: inherit; color: inherit; }
     if ('ResizeObserver' in window) new ResizeObserver(size).observe(stage);
     else window.addEventListener('resize', size);
     size();
-    return { rain, burst };
+    return { rain, burst, local(clientX, clientY) { const r = stage.getBoundingClientRect(); return [clientX - r.left, clientY - r.top]; } };
+  })();
+
+  /* ---------- Happy birthday tune ---------- */
+  let actx = null;
+  function audio() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!actx) actx = new AC();
+    if (actx.state === 'suspended') actx.resume();
+    return actx;
+  }
+  const NOTE = { G4: 392, A4: 440, B4: 493.88, C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99 };
+  const MELODY = [
+    ['G4', .75], ['G4', .25], ['A4', 1], ['G4', 1], ['C5', 1], ['B4', 2],
+    ['G4', .75], ['G4', .25], ['A4', 1], ['G4', 1], ['D5', 1], ['C5', 2],
+    ['G4', .75], ['G4', .25], ['G5', 1], ['E5', 1], ['C5', 1], ['B4', 1], ['A4', 2],
+    ['F5', .75], ['F5', .25], ['E5', 1], ['C5', 1], ['D5', 1], ['C5', 3],
+  ];
+  const song = (() => {
+    const btn = document.getElementById('songBtn');
+    let master = null, endTimer = 0;
+    const ui = (playing) => { btn.textContent = playing ? '⏹ stop the song' : '🎵 play happy birthday'; };
+    function stop() {
+      clearTimeout(endTimer);
+      if (master && actx) { master.gain.setTargetAtTime(0, actx.currentTime, 0.04); const m = master; setTimeout(() => m.disconnect(), 300); }
+      master = null; ui(false);
+    }
+    function play() {
+      const c = audio(); if (!c) return;
+      master = c.createGain(); master.gain.value = 0.9; master.connect(c.destination);
+      const beat = 0.42; let t = c.currentTime + 0.08;
+      for (const [n, d] of MELODY) {
+        const f = NOTE[n], len = d * beat;
+        [[f, 'sine', 0.22], [f * 2, 'triangle', 0.05]].forEach(([fr, type, vol]) => {
+          const o = c.createOscillator(), g = c.createGain();
+          o.type = type; o.frequency.value = fr;
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(vol, t + 0.015);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + len * 0.95 + 0.25);
+          o.connect(g); g.connect(master); o.start(t); o.stop(t + len + 0.3);
+        });
+        t += len;
+      }
+      ui(true);
+      endTimer = setTimeout(() => { master = null; ui(false); }, (t - c.currentTime) * 1000 + 300);
+    }
+    btn.addEventListener('click', () => { if (master) stop(); else play(); });
+    return { stop };
+  })();
+
+  /* ---------- Candles ---------- */
+  const cakeSlide = document.getElementById('s-cake');
+  const candles = [...cakeSlide.querySelectorAll('.candle')];
+  const cakeStatus = document.getElementById('cakeStatus');
+  const relight = document.getElementById('relight');
+  const cakeNext = document.getElementById('cakeNext');
+  candles.forEach((c, i) => c.addEventListener('click', () => {
+    if (c.classList.contains('out')) return;
+    c.classList.add('out');
+    c.setAttribute('aria-label', 'Candle ' + (i + 1) + ' is out');
+    const lit = candles.filter((x) => !x.classList.contains('out')).length;
+    if (lit === 0) {
+      cakeStatus.textContent = 'wish made 💫 hope it comes true';
+      relight.hidden = false;
+      cakeSlide.classList.add('dim');
+      cakeNext.textContent = 'next ›';
+      const r = c.getBoundingClientRect();
+      fx.burst(...fx.local(r.left + r.width / 2, r.top), 40);
+    } else {
+      cakeStatus.textContent = lit === 1 ? 'one more! 🕯️' : lit + ' candles to go';
+    }
+  }));
+  relight.addEventListener('click', () => {
+    candles.forEach((c, i) => { c.classList.remove('out'); c.setAttribute('aria-label', 'Blow out candle ' + (i + 1)); });
+    cakeStatus.textContent = 'then tap the candles to blow them out';
+    relight.hidden = true;
+    cakeSlide.classList.remove('dim');
+  });
+
+  /* ---------- Volleyball ---------- */
+  const game = (() => {
+    const cv = document.getElementById('court');
+    const ctx = cv.getContext('2d');
+    const tEl = document.getElementById('touches');
+    const bEl = document.getElementById('best');
+    const msg = document.getElementById('gameMsg');
+    const nextBtn = document.getElementById('gameNext');
+    const GOAL = 15;
+    const CHEER = { 3: 'nice! 👏', 5: 'five! keep going 🔥', 8: 'halfway there 💪', 10: 'ten!! 😮', 12: 'almost... 👀', 14: 'one more!!' };
+    const ball = { x: 0, y: 0, vx: 0, vy: 0, r: 32, a: 0 };
+    let W = 0, H = 0, state = 'ready', touches = 0, best = 0, won = false, lastHit = 0, last = 0, raf = 0, running = false, placed = false;
+    let clouds = [], specks = [], glints = [];
+    try { best = parseInt(localStorage.getItem('amandinah-best') || '0', 10) || 0; } catch (e) { best = 0; }
+    bEl.textContent = best;
+    const floorY = () => H * 0.86;
+    const gravity = () => Math.max(900, H * 2.6);
+
+    function seed() {
+      let s = 11;
+      const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+      clouds = [0, 1, 2].map((i) => ({ x: rnd() * W, y: H * (0.1 + i * 0.09), w: W * (0.22 + rnd() * 0.14), sp: 4 + rnd() * 6 }));
+      specks = Array.from({ length: 140 }, () => ({ x: rnd() * W, y: H * 0.66 + rnd() * H * 0.34, r: 0.6 + rnd() * 1.4 }));
+      glints = Array.from({ length: 14 }, () => ({ x: rnd() * W, y: H * 0.47 + rnd() * H * 0.14, w: 6 + rnd() * 18, ph: rnd() * 6 }));
+    }
+    function size() {
+      const r = cv.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = r.width; H = r.height;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ball.r = Math.max(26, Math.min(38, W / 11));
+      if (!placed) { ball.x = W * 0.5; placed = true; }
+      ball.x = Math.min(Math.max(ball.x, ball.r), W - ball.r);
+      if (state === 'ready') { ball.y = floorY() - ball.r; ball.vy = 0; }
+      seed(); draw(0);
+    }
+    function bump(px) {
+      const now = performance.now();
+      if (now - lastHit < 140) return;
+      lastHit = now;
+      ball.vy = -Math.sqrt(2 * gravity() * H * 0.5) * (0.95 + Math.random() * 0.1);
+      let vx = (ball.x - px) * 6 + (Math.random() - 0.5) * 80;
+      if (ball.x < W * 0.2) vx = Math.abs(vx) + 40;
+      if (ball.x > W * 0.8) vx = -Math.abs(vx) - 40;
+      ball.vx = Math.max(-W * 0.42, Math.min(W * 0.42, vx));
+      touches++;
+      tEl.textContent = touches;
+      if (touches > best) {
+        best = touches; bEl.textContent = best;
+        try { localStorage.setItem('amandinah-best', String(best)); } catch (e) { /* storage unavailable */ }
+      }
+      if (touches === GOAL && !won) {
+        won = true;
+        msg.textContent = '15!! happy birthday, champ 🏆🏐';
+        nextBtn.textContent = 'next ›';
+        const r = cv.getBoundingClientRect();
+        fx.burst(...fx.local(r.left + ball.x, r.top + ball.y), 44, ['🏐', '🎉', '🏆', '💖', '✨']);
+      } else if (!won && CHEER[touches]) {
+        msg.textContent = CHEER[touches];
+      } else if (won) {
+        msg.textContent = touches + '! still going 🔥';
+      }
+    }
+    function serve() {
+      state = 'play'; touches = 0; won = false; tEl.textContent = '0';
+      msg.textContent = 'keep it up! 15 touches 🏐';
+      bump(ball.x + (Math.random() - 0.5) * ball.r);
+    }
+    function tap(px, py) {
+      if (state === 'ready') { serve(); return; }
+      const dx = Math.abs(px - ball.x), dy = py - ball.y;
+      if (dx < ball.r * 2.2 && dy > -ball.r * 2.4 && dy < ball.r * 2.8) bump(px);
+    }
+    cv.addEventListener('pointerdown', (e) => {
+      const r = cv.getBoundingClientRect();
+      tap(e.clientX - r.left, e.clientY - r.top);
+    });
+    cv.addEventListener('keydown', (e) => {
+      if (e.code !== 'Space' && e.key !== 'Enter') return;
+      e.preventDefault();
+      if (state === 'ready') serve();
+      else if (ball.vy > 0 && ball.y > H * 0.4) bump(ball.x + (Math.random() - 0.5) * ball.r);
+    });
+    function step(dt) {
+      ball.vy += gravity() * dt;
+      ball.x += ball.vx * dt; ball.y += ball.vy * dt;
+      ball.a += (ball.vx * dt) / ball.r;
+      if (ball.x < ball.r) { ball.x = ball.r; ball.vx = Math.abs(ball.vx) * 0.85; }
+      if (ball.x > W - ball.r) { ball.x = W - ball.r; ball.vx = -Math.abs(ball.vx) * 0.85; }
+      if (ball.y < ball.r + 60) { ball.y = ball.r + 60; ball.vy = Math.abs(ball.vy) * 0.3; }
+      const fy = floorY() - ball.r;
+      if (ball.y >= fy) {
+        ball.y = fy;
+        if (state === 'play') {
+          state = 'ready';
+          if (!won) msg.textContent = touches === 0 ? 'tap the ball to serve 🏐' : touches + ' touches, so close! tap to try again 😅';
+          else msg.textContent = touches + ' touches! tap to play again 🏐';
+        }
+        ball.vy = Math.abs(ball.vy) > 120 ? -Math.abs(ball.vy) * 0.34 : 0;
+        ball.vx *= 0.78;
+      }
+      if (state === 'ready' && ball.vy === 0) ball.vx *= Math.max(0, 1 - 4 * dt);
+      clouds.forEach((c) => { c.x += c.sp * dt; if (c.x - c.w > W) c.x = -c.w; });
+    }
+    function cloud(x, y, w) {
+      ctx.beginPath();
+      ctx.ellipse(x, y, w * 0.5, w * 0.16, 0, 0, Math.PI * 2);
+      ctx.ellipse(x - w * 0.18, y - w * 0.08, w * 0.22, w * 0.14, 0, 0, Math.PI * 2);
+      ctx.ellipse(x + w * 0.12, y - w * 0.1, w * 0.26, w * 0.17, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    function draw(t) {
+      if (!W) return;
+      const hz = H * 0.47, shore = H * 0.62;
+      let g = ctx.createLinearGradient(0, 0, 0, hz);
+      g.addColorStop(0, '#3FA9E6'); g.addColorStop(0.65, '#9AD8F2'); g.addColorStop(1, '#FFE3BC');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, hz);
+      const sx = W * 0.76, sy = hz - H * 0.05;
+      const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, H * 0.2);
+      sg.addColorStop(0, 'rgba(255,246,214,.95)'); sg.addColorStop(0.25, 'rgba(255,230,170,.55)'); sg.addColorStop(1, 'rgba(255,220,150,0)');
+      ctx.fillStyle = sg; ctx.fillRect(0, 0, W, hz);
+      ctx.fillStyle = '#FFF8E1'; ctx.beginPath(); ctx.arc(sx, sy, H * 0.032, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.85)';
+      clouds.forEach((c) => cloud(c.x, c.y, c.w));
+
+      g = ctx.createLinearGradient(0, hz, 0, shore);
+      g.addColorStop(0, '#2FB4C8'); g.addColorStop(1, '#1688A3');
+      ctx.fillStyle = g; ctx.fillRect(0, hz, W, shore - hz);
+      ctx.fillStyle = 'rgba(255,248,225,.75)';
+      for (let i = 0; i < 4; i++) { const w = W * (0.16 - i * 0.035); ctx.fillRect(sx - w / 2, hz + 6 + i * 9, w, 2); }
+      ctx.fillStyle = 'rgba(255,255,255,.55)';
+      glints.forEach((p) => { const a = 0.3 + 0.7 * Math.abs(Math.sin(p.ph + t * 0.0015)); ctx.globalAlpha = a; ctx.fillRect(p.x, p.y, p.w, 1.5); });
+      ctx.globalAlpha = 1;
+
+      g = ctx.createLinearGradient(0, shore, 0, H);
+      g.addColorStop(0, '#E9CF98'); g.addColorStop(0.12, '#F5DEAC'); g.addColorStop(1, '#EDC98A');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.moveTo(0, shore);
+      const wave = Math.sin(t * 0.0012) * 4;
+      for (let x = 0; x <= W + 40; x += 40) ctx.quadraticCurveTo(x + 20, shore + ((x / 40) % 2 ? 7 : -3) + wave, x + 40, shore);
+      ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(0, shore);
+      for (let x = 0; x <= W + 40; x += 40) ctx.quadraticCurveTo(x + 20, shore + ((x / 40) % 2 ? 7 : -3) + wave, x + 40, shore);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(176,132,70,.28)';
+      specks.forEach((p) => { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill(); });
+
+      const netTop = H * 0.6, netH = H * 0.075, base = H * 0.74, p1 = W * 0.07, p2 = W * 0.93;
+      ctx.fillStyle = 'rgba(80,60,30,.18)';
+      ctx.beginPath(); ctx.ellipse(W * 0.5, base + 4, W * 0.46, 6, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(30,30,30,.4)'; ctx.lineWidth = 1;
+      for (let x = p1; x <= p2; x += 9) { ctx.beginPath(); ctx.moveTo(x, netTop); ctx.lineTo(x, netTop + netH); ctx.stroke(); }
+      for (let y = netTop; y <= netTop + netH; y += 9) { ctx.beginPath(); ctx.moveTo(p1, y); ctx.lineTo(p2, y); ctx.stroke(); }
+      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(p1, netTop - 3, p2 - p1, 6);
+      ctx.fillStyle = '#E9E3D6';
+      ctx.fillRect(p1 - 4, netTop - 8, 8, base - netTop + 8);
+      ctx.fillRect(p2 - 4, netTop - 8, 8, base - netTop + 8);
+
+      const fy = floorY();
+      const lift = Math.max(0, fy - (ball.y + ball.r));
+      const s = Math.max(0.3, 1 - lift / (H * 0.7));
+      ctx.fillStyle = 'rgba(90,60,20,.25)';
+      ctx.beginPath(); ctx.ellipse(ball.x, fy - 2, ball.r * s, ball.r * 0.24 * s, 0, 0, Math.PI * 2); ctx.fill();
+
+      const r = ball.r;
+      ctx.save(); ctx.translate(ball.x, ball.y);
+      ctx.save(); ctx.rotate(ball.a);
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fillStyle = '#FFFFFF'; ctx.fill();
+      ctx.save(); ctx.clip(); ctx.lineWidth = r * 0.48;
+      ctx.strokeStyle = '#FFC72C'; ctx.beginPath(); ctx.arc(-r * 1.15, -r * 0.1, r * 1.05, -0.95, 0.95); ctx.stroke();
+      ctx.strokeStyle = '#1E5BC6'; ctx.beginPath(); ctx.arc(r * 0.55, r * 1.2, r * 1.05, -2.75, -1.25); ctx.stroke();
+      ctx.strokeStyle = '#FFC72C'; ctx.beginPath(); ctx.arc(r * 0.7, -r * 1.15, r * 1.05, 1.1, 2.6); ctx.stroke();
+      ctx.restore(); ctx.restore();
+      const sh = ctx.createRadialGradient(-r * 0.35, -r * 0.4, r * 0.1, 0, 0, r);
+      sh.addColorStop(0, 'rgba(255,255,255,.5)'); sh.addColorStop(0.55, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(0,0,0,.25)');
+      ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
+      ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.stroke();
+      ctx.restore();
+    }
+    function frame(now) {
+      if (!running) return;
+      const dt = Math.min(1 / 30, (now - last) / 1000); last = now;
+      step(dt); draw(now);
+      raf = requestAnimationFrame(frame);
+    }
+    function start() { if (running) return; running = true; size(); last = performance.now(); raf = requestAnimationFrame(frame); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(cv);
+    return { start, stop };
   })();
 
   /* ---------- Story ---------- */
@@ -245,24 +623,28 @@ button { font: inherit; color: inherit; }
   const fills = [...barsEl.querySelectorAll('b')];
   const DUR = 5000;
   let cur = 0, prog = 0, paused = false, started = false, last = performance.now();
-  const isLast = () => cur === slides.length - 1;
+  const kind = () => slides[cur].dataset.kind;
 
   function render() {
     fills.forEach((f, k) => {
-      const v = k < cur ? 1 : k > cur ? 0 : (isLast() ? 1 : prog);
+      const v = k < cur ? 1 : k > cur ? 0 : (kind() === 'photo' ? prog : 1);
       f.style.transform = 'scaleX(' + v + ')';
     });
   }
   function show(i) {
     i = Math.max(0, Math.min(slides.length - 1, i));
-    slides.forEach((s, k) => { s.classList.toggle('on', k === i); s.inert = k !== i; });
     const changed = i !== cur;
+    const prev = slides[cur];
+    if (changed && prev.id === 's-game') game.stop();
+    if (changed && prev.id === 's-cake') song.stop();
+    slides.forEach((s, k) => { s.classList.toggle('on', k === i); s.inert = k !== i; });
     cur = i; prog = 0; render();
-    if (isLast() && changed) setTimeout(() => fx.rain(40), 200);
+    if (slides[i].id === 's-game') game.start();
+    if (kind() === 'end' && changed) setTimeout(() => fx.rain(40), 200);
   }
   function loop(now) {
     const dt = now - last; last = now;
-    if (started && !paused && !document.hidden && !isLast()) {
+    if (started && !paused && !document.hidden && kind() === 'photo') {
       prog += dt / DUR;
       if (prog >= 1) show(cur + 1); else render();
     }
@@ -272,7 +654,7 @@ button { font: inherit; color: inherit; }
 
   let down = false, downAt = 0;
   story.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('button')) return;
+    if (kind() === 'play' || e.target.closest('button, canvas')) return;
     down = true; downAt = performance.now(); paused = true;
   });
   function release(e) {
@@ -281,13 +663,15 @@ button { font: inherit; color: inherit; }
     if (e.type !== 'pointerup' || performance.now() - downAt > 260) return;
     const r = story.getBoundingClientRect();
     if (e.clientX - r.left < r.width * 0.3) show(cur - 1);
-    else if (!isLast()) show(cur + 1);
+    else if (kind() !== 'end') show(cur + 1);
   }
   story.addEventListener('pointerup', release);
   story.addEventListener('pointercancel', release);
   story.addEventListener('pointerleave', release);
+  story.querySelectorAll('[data-next]').forEach((b) => b.addEventListener('click', () => show(cur + 1)));
+  story.querySelectorAll('[data-prev]').forEach((b) => b.addEventListener('click', () => show(cur - 1)));
   document.addEventListener('keydown', (e) => {
-    if (story.hidden) return;
+    if (story.hidden || (e.target && e.target.id === 'court')) return;
     if (e.key === 'ArrowRight') { e.preventDefault(); show(cur + 1); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1); }
   });
@@ -295,11 +679,10 @@ button { font: inherit; color: inherit; }
 
   document.getElementById('giftBtn').addEventListener('click', (e) => {
     if (open.classList.contains('bye')) return;
-    const r = e.currentTarget.getBoundingClientRect(), s = stage.getBoundingClientRect();
-    fx.burst(r.left - s.left + r.width / 2, r.top - s.top + r.height / 2, 40);
+    const r = e.currentTarget.getBoundingClientRect();
+    fx.burst(...fx.local(r.left + r.width / 2, r.top + r.height / 2), 40);
     open.classList.add('bye');
     story.hidden = false;
-    slides.forEach((sl) => { sl.inert = true; });
     show(0);
     setTimeout(() => { open.hidden = true; started = true; last = performance.now(); }, reduce ? 50 : 450);
   });
