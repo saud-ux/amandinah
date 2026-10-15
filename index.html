@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feliz Aniversário, Amandinah</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A little beach day for Amanda's birthday, 15 October.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Caprasimo&family=Figtree:wght@400;500;700&family=Nanum+Pen+Script&display=swap">
+<style>
+/* Layout: one beach day read top to bottom. A sky where the sun is her photo, the sea, then sand holding polaroids, a ticket stack, a volleyball court and a note. */
+:root {
+  --sky: #D8EFEC;
+  --sky-low: #F8E2C4;
+  --sea: #0C7C82;
+  --sea-deep: #075A60;
+  --foam: #F2FBF8;
+  --sand: #F5E6C8;
+  --sand-deep: #EAD3A6;
+  --paper: #FFFDF6;
+  --paper-ink: #2B2A26;
+  --paper-muted: #5E5A50;
+  --paper-line: #DCE9EA;
+  --paper-head: #0A5F66;
+  --paper-accent: #B83A12;
+  --ink: #173A3F;
+  --muted: #4E6B6A;
+  --head: #0A5F66;
+  --sun: #FF6A3D;
+  --sun-deep: #D24A20;
+  --sun-text: #B83A12;
+  --on-sun: #2B1108;
+  --yolk: #FFC83A;
+  --leaf: #43A83A;
+  --leaf-deep: #2C7D29;
+  --leaf-soft: #A6DE7C;
+  --board: #0A4F55;
+  --board-fg: #EAF7F4;
+  --line: rgba(23, 58, 63, .16);
+  --shadow: rgba(70, 45, 10, .22);
+  --scrim: rgba(10, 30, 35, .72);
+
+  --f-display: "Caprasimo", "Cooper Black", "Georgia", serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-hand: "Nanum Pen Script", "Bradley Hand", "Comic Sans MS", cursive;
+  --f-ar: "Aref Ruqaa", "Noto Naskh Arabic", "Geeza Pro", "Times New Roman", serif;
+
+  --sun-size: min(76vw, 300px);
+  --dip: calc(var(--sun-size) * .22);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sky: #0B1F2A; --sky-low: #1C3242; --sea: #17797D; --sea-deep: #0D5156; --foam: #BFE9E4;
+    --sand: #11222A; --sand-deep: #0B1A20; --paper: #F3EADA; --paper-ink: #2B2A26; --paper-muted: #5E5A50;
+    --paper-line: #DDD4C2; --paper-head: #0A5F66; --paper-accent: #B83A12;
+    --ink: #E6F2EF; --muted: #A2BCBA; --head: #8EE0D8;
+    --sun: #FF8A5E; --sun-deep: #C8603A; --sun-text: #FFA884; --on-sun: #2B1108;
+    --yolk: #FFD566; --leaf: #62C255; --leaf-deep: #3E9A36; --leaf-soft: #B5E58F;
+    --board: #133F45; --board-fg: #EAF7F4;
+    --line: rgba(230, 242, 239, .16); --shadow: rgba(0, 0, 0, .5); --scrim: rgba(3, 10, 14, .82);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --sky: #0B1F2A; --sky-low: #1C3242; --sea: #17797D; --sea-deep: #0D5156; --foam: #BFE9E4;
+  --sand: #11222A; --sand-deep: #0B1A20; --paper: #F3EADA; --paper-ink: #2B2A26; --paper-muted: #5E5A50;
+  --paper-line: #DDD4C2; --paper-head: #0A5F66; --paper-accent: #B83A12;
+  --ink: #E6F2EF; --muted: #A2BCBA; --head: #8EE0D8;
+  --sun: #FF8A5E; --sun-deep: #C8603A; --sun-text: #FFA884; --on-sun: #2B1108;
+  --yolk: #FFD566; --leaf: #62C255; --leaf-deep: #3E9A36; --leaf-soft: #B5E58F;
+  --board: #133F45; --board-fg: #EAF7F4;
+  --line: rgba(230, 242, 239, .16); --shadow: rgba(0, 0, 0, .5); --scrim: rgba(3, 10, 14, .82);
+  color-scheme: dark;
+}
+@media (min-width: 820px) {
+  :root { --sun-size: min(36vw, 400px); }
+}
+
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+[hidden] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--sand);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 400; }
+p { margin: 0; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- Sky ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--sky) 0%, var(--sky) 40%, var(--sky-low) 100%);
+}
+.hero > .wrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 36px;
+  padding-block: 92px 0;
+}
+.hero-text { min-width: 0; container-type: inline-size; display: grid; gap: 18px; }
+@media (min-width: 820px) {
+  .hero > .wrap { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: end; padding-block: 128px 0; }
+  .hero-text { padding-bottom: calc(var(--dip) + 48px); }
+}
+.eyebrow {
+  font: 700 .78rem/1.2 var(--f-body);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--sun-text);
+}
+.h1-pre {
+  display: block;
+  font: 400 clamp(1.5rem, 7cqi, 2.4rem)/1.1 var(--f-display);
+  color: var(--sun-text);
+}
+.h1-name {
+  display: block;
+  font: 400 clamp(3rem, 16cqi, 7.25rem)/.95 var(--f-display);
+  color: var(--head);
+  white-space: nowrap;
+  letter-spacing: -.01em;
+}
+.lede { max-width: 44ch; font-size: 1.125rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px; }
+.btn {
+  appearance: none;
+  font: 700 1rem/1 var(--f-body);
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--sun);
+  color: var(--on-sun);
+  box-shadow: 0 4px 0 var(--sun-deep);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 5px 0 var(--sun-deep); }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--sun-deep); }
+.btn-ghost { background: transparent; color: var(--head); box-shadow: inset 0 0 0 2px var(--head); }
+.btn-ghost:hover, .btn-ghost:active { box-shadow: inset 0 0 0 2px var(--head); }
+
+.sun {
+  position: relative;
+  width: var(--sun-size);
+  aspect-ratio: 1;
+  max-width: 100%;
+  justify-self: center;
+}
+@media (min-width: 820px) { .sun { justify-self: end; } }
+.sun::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--yolk) 70%, transparent) 0deg 5deg, transparent 5deg 15deg);
+  -webkit-mask: radial-gradient(circle, transparent 37%, #000 39%, transparent 70%);
+  mask: radial-gradient(circle, transparent 37%, #000 39%, transparent 70%);
+  animation: spin 80s linear infinite;
+}
+.sun img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 8px var(--yolk),
+    0 0 0 20px color-mix(in srgb, var(--sun) 30%, transparent),
+    0 0 90px 30px color-mix(in srgb, var(--sun) 35%, transparent);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* The banner plane that flies along every Brazilian beach */
+.plane {
+  position: absolute;
+  top: 26px;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: fly 28s linear infinite;
+  animation-delay: -12s;
+  pointer-events: none;
+}
+.plane svg { width: 64px; height: 32px; flex: none; }
+.plane .rope { width: 26px; height: 1.5px; background: var(--ink); opacity: .6; flex: none; }
+.plane .banner {
+  font: 400 .95rem/1 var(--f-display);
+  color: var(--sun-text);
+  background: var(--paper);
+  padding: 8px 22px 8px 12px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
+  box-shadow: inset 0 0 0 1px var(--line);
+  animation: flutter 1.6s ease-in-out infinite;
+}
+@keyframes fly { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+@keyframes flutter { 50% { transform: skewY(-2deg) translateY(1px); } }
+
+/* ---------- Sea ---------- */
+.sea {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(var(--dip) * -1);
+  height: calc(var(--dip) + 104px);
+  background: linear-gradient(180deg, var(--sea) 0%, var(--sea-deep) 100%);
+  overflow: hidden;
+}
+.sea > .wrap { display: grid; height: 100%; }
+@media (min-width: 820px) { .sea > .wrap { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 36px; } }
+.glint {
+  width: var(--sun-size);
+  max-width: 100%;
+  justify-self: center;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 8px;
+  padding-top: 12px;
+}
+@media (min-width: 820px) { .glint { grid-column: 2; justify-self: end; } }
+.glint i { display: block; height: 4px; border-radius: 2px; background: var(--yolk); opacity: .8; animation: shimmer 3.2s ease-in-out infinite; }
+.glint i:nth-child(1) { width: 62%; }
+.glint i:nth-child(2) { width: 44%; animation-delay: -.8s; opacity: .65; }
+.glint i:nth-child(3) { width: 28%; animation-delay: -1.6s; opacity: .5; }
+.glint i:nth-child(4) { width: 14%; animation-delay: -2.4s; opacity: .4; }
+@keyframes shimmer { 50% { transform: scaleX(.8); } }
+.shore { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 34px; }
+.shore .sand-fill { fill: var(--sand); }
+.shore .foam-line { fill: none; stroke: var(--foam); stroke-width: 3; opacity: .85; }
+
+/* ---------- Sand sections ---------- */
+.section { padding-block: clamp(56px, 9vw, 104px); overflow-x: clip; }
+.sec-head { display: grid; gap: 10px; margin-bottom: clamp(28px, 4vw, 44px); max-width: 60ch; }
+.sec-head h2 { font: 400 clamp(2rem, 6.4vw, 3.3rem)/1.05 var(--f-display); color: var(--head); }
+.sec-sub { color: var(--muted); max-width: 52ch; }
+
+/* Polaroids */
+.album { display: grid; gap: 44px; }
+@media (min-width: 760px) { .album { grid-template-columns: 1fr 1fr; gap: 36px; } }
+.era { min-width: 0; }
+.era-label { font: 400 2.2rem/1 var(--f-hand); color: var(--muted); margin-bottom: 18px; }
+.pols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 3vw, 24px); }
+.pol {
+  --tilt: -2deg;
+  appearance: none;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  cursor: zoom-in;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font: inherit;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding: 10px 10px 0;
+  box-shadow: 0 14px 26px -14px var(--shadow), 0 1px 3px var(--shadow);
+  transform: rotate(var(--tilt));
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.pols .pol:nth-child(2) { --tilt: 2.4deg; margin-top: 14px; }
+.era:nth-child(2) .pol:nth-child(1) { --tilt: 1.6deg; }
+.era:nth-child(2) .pol:nth-child(2) { --tilt: -1.8deg; }
+.pol:hover { transform: rotate(0deg) translateY(-4px); box-shadow: 0 20px 32px -14px var(--shadow), 0 1px 3px var(--shadow); }
+.pol::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 66px;
+  height: 22px;
+  transform: translateX(-50%) rotate(-4deg);
+  background: color-mix(in srgb, var(--yolk) 55%, transparent);
+  z-index: 1;
+}
+.pol img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; background: var(--sand-deep); }
+.pol .cap { font: 400 clamp(1.25rem, 3.6vw, 1.55rem)/1.05 var(--f-hand); padding: 10px 4px 14px; }
+
+/* Tickets */
+.facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+@media (min-width: 620px) { .facts { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+.fact {
+  min-width: 0;
+  background: var(--paper);
+  color: var(--paper-ink);
+  border-radius: 16px;
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  column-gap: 18px;
+  row-gap: 2px;
+  align-content: start;
+  -webkit-mask: radial-gradient(circle 11px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 11px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle 11px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 11px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.fact-icon { grid-row: span 3; width: 56px; height: 56px; }
+.fact-label { font: 700 .74rem/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--paper-muted); }
+.fact-value { font: 400 1.75rem/1.1 var(--f-display); color: var(--paper-head); }
+.fact-note { margin-top: 6px; font-size: .97rem; line-height: 1.5; color: var(--paper-muted); }
+@media (min-width: 1000px) {
+  .fact { grid-template-columns: minmax(0, 1fr); row-gap: 6px; padding: 26px 26px 28px; }
+  .fact-icon { grid-row: auto; margin-bottom: 8px; }
+}
+
+/* Court */
+.court-sec { background: var(--sand-deep); }
+.court { display: grid; gap: 14px; }
+.scoreboard { display: flex; flex-wrap: wrap; gap: 12px; }
+.score {
+  background: var(--board);
+  color: var(--board-fg);
+  border-radius: 12px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.score-label { font: 700 .74rem/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.score-num { font: 400 2rem/1 var(--f-display); color: var(--yolk); font-variant-numeric: tabular-nums; min-width: 1.3em; text-align: right; }
+.score-of { font-weight: 700; opacity: .75; }
+.stage {
+  position: relative;
+  height: clamp(340px, 64vw, 460px);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--line), 0 18px 34px -20px var(--shadow);
+  background: var(--sky);
+}
+#game { display: block; width: 100%; height: 100%; touch-action: manipulation; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.bird {
+  position: absolute;
+  top: 10px;
+  right: max(10px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 6px;
+  pointer-events: none;
+}
+.bird-btn {
+  pointer-events: auto;
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  flex: none;
+}
+.bird-btn svg { width: 100%; height: 100%; transform-origin: 50% 90%; }
+.bird-btn:hover svg, .bird.talk .bird-btn svg { animation: bob .5s ease-in-out 2; }
+@keyframes bob { 50% { transform: rotate(-8deg) translateY(-3px); } }
+.bubble {
+  position: relative;
+  margin-top: 10px;
+  max-width: min(58vw, 270px);
+  background: var(--paper);
+  color: var(--paper-ink);
+  font: 400 1.45rem/1.05 var(--f-hand);
+  padding: 8px 12px 9px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px -6px var(--shadow);
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  top: 16px;
+  border: 7px solid transparent;
+  border-left-color: var(--paper);
+  border-right: 0;
+}
+.bubble.pop { animation: pop .28s ease-out; }
+@keyframes pop { from { transform: scale(.85); opacity: .4; } }
+.court-hint { color: var(--muted); font-size: .95rem; }
+
+/* Letter */
+.letter {
+  max-width: 660px;
+  margin-inline: auto;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(180deg, transparent 0 31px, var(--paper-line) 31px 32px);
+  background-position: 0 14px;
+  color: var(--paper-ink);
+  padding: clamp(28px, 6vw, 56px) clamp(22px, 6vw, 60px);
+  border-radius: 6px;
+  box-shadow: 0 24px 40px -24px var(--shadow), 0 1px 3px var(--shadow);
+  transform: rotate(-.6deg);
+  display: grid;
+  gap: 16px;
+  line-height: 1.75;
+}
+.letter h2 { font: 400 clamp(2.2rem, 7vw, 3rem)/1.05 var(--f-display); color: var(--paper-head); margin-bottom: 6px; }
+.letter .big { font-weight: 700; font-size: 1.15rem; }
+.ar { font: 700 clamp(2rem, 7vw, 2.8rem)/1.5 var(--f-ar); color: var(--paper-head); margin-top: 8px; }
+.ar-note { font-size: .92rem; color: var(--paper-muted); margin-top: -8px; }
+.sign { font: 400 2rem/1.1 var(--f-hand); color: var(--paper-accent); margin-top: 8px; }
+
+footer { padding-block: 28px 44px; color: var(--muted); font-size: .9rem; text-align: center; }
+
+/* Photo viewer */
+.viewer {
+  border: 0;
+  padding: 12px 12px 0;
+  background: var(--paper);
+  color: var(--paper-ink);
+  width: min(92vw, 560px);
+  max-height: 92vh;
+  border-radius: 4px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6);
+}
+.viewer::backdrop { background: var(--scrim); }
+.viewer figure { margin: 0; }
+.viewer img { width: 100%; max-height: 74vh; object-fit: contain; background: var(--paper); }
+.viewer figcaption { font: 400 1.7rem/1.1 var(--f-hand); padding: 12px 4px 4px; }
+.viewer-bar { display: flex; justify-content: flex-end; padding: 6px 0 12px; }
+.viewer-close {
+  appearance: none;
+  border: 0;
+  background: var(--board);
+  color: var(--board-fg);
+  font: 700 .95rem/1 var(--f-body);
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .plane { animation: none; left: auto; right: max(16px, env(safe-area-inset-right, 0px)); }
+  .plane .banner, .sun::before, .glint i, .bird-btn svg { animation: none !important; }
+  .pol, .btn { transition: none; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="periquito" viewBox="0 0 100 100">
+    <path d="M34 66 L14 97 L27 97 L44 74 Z" style="fill:var(--leaf-deep)"/>
+    <ellipse cx="50" cy="62" rx="23" ry="28" style="fill:var(--leaf)"/>
+    <ellipse cx="57" cy="68" rx="13" ry="19" style="fill:var(--leaf-soft)"/>
+    <ellipse cx="40" cy="62" rx="12" ry="21" transform="rotate(-14 40 62)" style="fill:var(--leaf-deep)"/>
+    <path d="M33 56 q7 4 14 1 M33 64 q7 4 14 1 M34 72 q6 3 12 1" style="fill:none;stroke:var(--leaf);stroke-width:2;stroke-linecap:round"/>
+    <circle cx="58" cy="30" r="18" style="fill:var(--yolk)"/>
+    <circle cx="66" cy="40" r="3.4" style="fill:var(--sea)"/>
+    <circle cx="62" cy="25" r="4" style="fill:var(--paper-ink)"/>
+    <circle cx="63.4" cy="23.6" r="1.3" style="fill:var(--paper)"/>
+    <path d="M71 26 q10 1 6 13 q-6 -2 -8 -8 Z" style="fill:var(--sun)"/>
+    <path d="M44 89 v6 M56 89 v6" style="stroke:var(--sun-deep);stroke-width:3;stroke-linecap:round"/>
+  </symbol>
+</svg>
+
+<header class="hero">
+  <div class="plane" aria-hidden="true">
+    <svg viewBox="0 0 90 44">
+      <rect x="2" y="11" width="3.5" height="22" rx="1.75" style="fill:var(--ink)"/>
+      <path d="M7 23 C7 16 15 13 26 13 H66 L79 4 H86 L81 20 V27 H26 C15 27 7 28 7 23 Z" style="fill:var(--paper);stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round"/>
+      <rect x="30" y="20" width="24" height="6" rx="3" style="fill:var(--sun)"/>
+      <circle cx="21" cy="18" r="3" style="fill:var(--sea)"/>
+    </svg>
+    <span class="rope"></span>
+    <span class="banner" lang="pt-BR">Parabéns, Amandinah! 15·10</span>
+  </div>
+
+  <div class="wrap">
+    <div class="hero-text">
+      <p class="eyebrow"><span lang="pt-BR">15 de outubro</span> · Libra season</p>
+      <h1>
+        <span class="h1-pre" lang="pt-BR">Feliz aniversário,</span>
+        <span class="h1-name">Amandinah</span>
+      </h1>
+      <p class="lede">Happy birthday to the girl with the best curls I know. I made you a little beach day: old photos, a few facts everyone should know, a volleyball game and a note at the end.</p>
+      <div class="actions">
+        <button class="btn" id="confettiBtn" type="button">Throw confetti</button>
+        <a class="btn btn-ghost" href="#court">Play volleyball</a>
+      </div>
+    </div>
+    <div class="sun">
+      <img src="photos/amanda-now.jpg" alt="Amanda today, smiling with long curly hair" width="900" height="900">
+    </div>
+  </div>
+</header>
+
+<div class="sea" aria-hidden="true">
+  <div class="wrap"><div class="glint"><i></i><i></i><i></i><i></i></div></div>
+  <svg class="shore" viewBox="0 0 1440 34" preserveAspectRatio="none">
+    <path class="sand-fill" d="M0 18 C120 2 240 30 360 16 S600 2 720 16 S960 30 1080 16 S1320 2 1440 16 V34 H0 Z"/>
+    <path class="foam-line" d="M0 18 C120 2 240 30 360 16 S600 2 720 16 S960 30 1080 16 S1320 2 1440 16"/>
+  </svg>
+</div>
+
+<main>
+  <section class="section" id="photos" aria-labelledby="photos-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Then &amp; now</p>
+        <h2 id="photos-title">Same curls since day one</h2>
+        <p class="sec-sub">Tap a photo to see it bigger.</p>
+      </div>
+      <div class="album">
+        <div class="era">
+          <h3 class="era-label">Then</h3>
+          <div class="pols">
+            <button class="pol" type="button" data-full="photos/baby-swing.jpg">
+              <img src="photos/baby-swing.jpg" alt="Baby Amanda with curly hair, sitting in a colorful swing" width="900" height="1200" loading="lazy">
+              <span class="cap">Day one curls. Holding on tight.</span>
+            </button>
+            <button class="pol" type="button" data-full="photos/baby-chupeta.jpg">
+              <img src="photos/baby-chupeta.jpg" alt="Little Amanda in a red jacket with a Mickey pacifier, lying on a bed" width="900" height="1200" loading="lazy">
+              <span class="cap"><span lang="pt-BR">Chupeta</span> era. Totally unbothered.</span>
+            </button>
+          </div>
+        </div>
+        <div class="era">
+          <h3 class="era-label">Now</h3>
+          <div class="pols">
+            <button class="pol" type="button" data-full="photos/balcony.jpg">
+              <img src="photos/balcony.jpg" alt="Amanda in a cap on a balcony, looking out over the city" width="900" height="1200" loading="lazy">
+              <span class="cap">Checking if it's beach weather yet.</span>
+            </button>
+            <button class="pol" type="button" data-full="photos/mirror.jpg">
+              <img src="photos/mirror.jpg" alt="Amanda taking a mirror selfie in a white bikini and cap" width="900" height="1200" loading="lazy">
+              <span class="cap">Beach-ready, as always.</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="file" aria-labelledby="file-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Need-to-know</p>
+        <h2 id="file-title">The Amandinah file</h2>
+      </div>
+      <ul class="facts">
+        <li class="fact">
+          <svg class="fact-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g style="fill:none;stroke:var(--paper-ink);stroke-width:3;stroke-linecap:round">
+              <path d="M32 10 V54 M20 55 H44 M10 18 H54 M10 18 L4 36 M10 18 L16 36 M54 18 L48 36 M54 18 L60 36"/>
+            </g>
+            <path d="M3 36 H17 A7 7 0 0 1 3 36 Z M47 36 H61 A7 7 0 0 1 47 36 Z" style="fill:var(--yolk);stroke:var(--paper-ink);stroke-width:2.5;stroke-linejoin:round"/>
+            <circle cx="32" cy="10" r="4" style="fill:var(--sun)"/>
+          </svg>
+          <span class="fact-label">Sign</span>
+          <span class="fact-value">Libra</span>
+          <p class="fact-note">Born on 15 October, deep in Libra season. Charm, balance and very good taste.</p>
+        </li>
+        <li class="fact">
+          <svg class="fact-icon" viewBox="0 0 100 100" aria-hidden="true"><use href="#periquito"/></svg>
+          <span class="fact-label">Sidekick</span>
+          <span class="fact-value" lang="pt-BR">Periquito</span>
+          <p class="fact-note">The parrot of the house. The name means “parakeet” in Portuguese, which is exactly right.</p>
+        </li>
+        <li class="fact">
+          <svg class="fact-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="25" style="fill:var(--paper);stroke:var(--paper-ink);stroke-width:3"/>
+            <path d="M32 7 C22 18 20 32 24 46 M57 32 C44 28 31 32 22 43 M14 50 C26 50 40 44 47 30" style="fill:none;stroke:var(--sea);stroke-width:3;stroke-linecap:round"/>
+            <path d="M9 22 C18 22 27 27 32 34" style="fill:none;stroke:var(--sun);stroke-width:3;stroke-linecap:round"/>
+          </svg>
+          <span class="fact-label">Sport</span>
+          <span class="fact-value">Volleyball</span>
+          <p class="fact-note">Bump, set, spike. There's a court waiting for you further down.</p>
+        </li>
+        <li class="fact">
+          <svg class="fact-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M8 30 A24 21 0 0 1 56 30 Z" style="fill:var(--sun);stroke:var(--paper-ink);stroke-width:2.5;stroke-linejoin:round"/>
+            <path d="M24 30 Q26 14 32 9 Q38 14 40 30" style="fill:var(--yolk);stroke:var(--paper-ink);stroke-width:2.5;stroke-linejoin:round"/>
+            <path d="M32 30 L38 54" style="stroke:var(--paper-ink);stroke-width:3;stroke-linecap:round"/>
+            <path d="M3 58 C8 54 13 54 18 58 S28 62 33 58 S43 54 48 58 S58 62 61 59" style="fill:none;stroke:var(--sea);stroke-width:3;stroke-linecap:round"/>
+          </svg>
+          <span class="fact-label">Happy place</span>
+          <span class="fact-value">The beach</span>
+          <p class="fact-note">Salt water, warm sand and the sun on your face.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section court-sec" id="court" aria-labelledby="court-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Beach court</p>
+        <h2 id="court-title">Fifteen for the fifteenth</h2>
+        <p class="sec-sub">Tap the ball to bump it. Keep it off the sand for 15 touches, one for every day of October up to your birthday. Periquito is counting.</p>
+      </div>
+      <div class="court">
+        <div class="scoreboard">
+          <div class="score"><span class="score-label">Touches</span><span class="score-num" id="touches">0</span><span class="score-of">/ 15</span></div>
+          <div class="score"><span class="score-label">Best</span><span class="score-num" id="best">0</span></div>
+        </div>
+        <div class="stage">
+          <canvas id="game" tabindex="0" aria-label="Volleyball game. Tap the ball, or press Space, to bump it." aria-describedby="court-title"></canvas>
+          <div class="bird" id="bird">
+            <button class="bird-btn" id="birdBtn" type="button" aria-label="Talk to Periquito">
+              <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#periquito"/></svg>
+            </button>
+            <p class="bubble" id="bubble" role="status" aria-live="polite">Tap the ball to serve!</p>
+          </div>
+        </div>
+        <p class="court-hint">On a keyboard, click the court and press Space when the ball is coming down.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="note" aria-labelledby="note-title">
+    <div class="wrap">
+      <article class="letter">
+        <h2 id="note-title" lang="pt-BR">Para você</h2>
+        <p class="big">Amandinah, happy birthday!</p>
+        <p>I hope this year brings you everything you love: long beach days, good volleyball games, sun on your face and Periquito singing in the background. You deserve all of it and more.</p>
+        <p>Thank you for being exactly who you are, curls and all. I'm really lucky to have you as a friend. Enjoy every minute of today, because it's all yours.</p>
+        <p lang="pt-BR" class="big">Feliz aniversário!</p>
+        <p class="ar" lang="ar" dir="rtl">كل عام وأنتِ بخير</p>
+        <p class="ar-note">That's Arabic for “may you be well every year”, the way we say happy birthday.</p>
+        <p class="sign">With love, your friend</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Made for Amandinah · 15 · 10 · 2026</div>
+</footer>
+
+<dialog class="viewer" id="viewer" aria-label="Photo">
+  <figure>
+    <img id="viewerImg" src="photos/amanda-now.jpg" alt="">
+    <figcaption id="viewerCap"></figcaption>
+  </figure>
+  <div class="viewer-bar"><button class="viewer-close" id="viewerClose" type="button">Close</button></div>
+</dialog>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const token = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+
+  /* ---------- Confetti ---------- */
+  const confetti = (() => {
+    const cv = document.getElementById('confetti');
+    const ctx = cv.getContext('2d');
+    let parts = [], running = false, W = 0, H = 0, last = 0;
+    function size() {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = window.innerWidth; H = window.innerHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function burst(x, y, n = 120) {
+      const colors = ['--sun', '--yolk', '--leaf', '--sea', '--paper'].map(token);
+      for (let i = 0; i < n; i++) {
+        const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.2;
+        const speed = 380 + Math.random() * 620;
+        parts.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          w: 6 + Math.random() * 6,
+          h: 9 + Math.random() * 9,
+          rot: Math.random() * Math.PI,
+          vr: (Math.random() - 0.5) * 14,
+          wob: Math.random() * 10,
+          c: colors[i % colors.length],
+          round: Math.random() < 0.25,
+          t: 0,
+          life: 2.8 + Math.random() * 1.6,
+        });
+      }
+      if (!running) { running = true; last = performance.now(); requestAnimationFrame(tick); }
+    }
+    function tick(now) {
+      const dt = Math.min(0.033, (now - last) / 1000); last = now;
+      ctx.clearRect(0, 0, W, H);
+      parts = parts.filter((p) => p.t < p.life && p.y < H + 40);
+      for (const p of parts) {
+        p.t += dt;
+        p.vy += 980 * dt;
+        p.vx *= 1 - 1.6 * dt;
+        p.vy *= 1 - 0.9 * dt;
+        p.x += p.vx * dt; p.y += p.vy * dt;
+        p.rot += p.vr * dt; p.wob += dt * 8;
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, (p.life - p.t) * 1.5);
+        ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.fillStyle = p.c;
+        if (p.round) { ctx.beginPath(); ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2); ctx.fill(); }
+        else { ctx.scale(1, Math.cos(p.wob)); ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); }
+        ctx.restore();
+      }
+      if (parts.length) requestAnimationFrame(tick);
+      else { running = false; ctx.clearRect(0, 0, W, H); }
+    }
+    window.addEventListener('resize', size);
+    size();
+    return { burst, get width() { return W; }, get height() { return H; } };
+  })();
+
+  const celebrate = () => {
+    confetti.burst(confetti.width * 0.2, confetti.height * 0.45);
+    confetti.burst(confetti.width * 0.8, confetti.height * 0.45);
+  };
+  document.getElementById('confettiBtn').addEventListener('click', (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    confetti.burst(r.left + r.width / 2, r.top, 160);
+  });
+  if (!reduceMotion) setTimeout(celebrate, 500);
+
+  /* ---------- Photo viewer ---------- */
+  const viewer = document.getElementById('viewer');
+  const vImg = document.getElementById('viewerImg');
+  const vCap = document.getElementById('viewerCap');
+  const closeViewer = () => { if (typeof viewer.close === 'function') viewer.close(); else viewer.removeAttribute('open'); };
+  document.querySelectorAll('.pol').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const img = btn.querySelector('img');
+      vImg.src = btn.dataset.full;
+      vImg.alt = img.alt;
+      vCap.textContent = btn.querySelector('.cap').textContent;
+      if (typeof viewer.showModal === 'function') viewer.showModal();
+      else viewer.setAttribute('open', '');
+    });
+  });
+  document.getElementById('viewerClose').addEventListener('click', closeViewer);
+  viewer.addEventListener('click', (e) => { if (e.target === viewer) closeViewer(); });
+
+  /* ---------- Periquito ---------- */
+  const bubble = document.getElementById('bubble');
+  const bird = document.getElementById('bird');
+  const say = (text) => {
+    bubble.textContent = text;
+    bubble.dir = 'auto';
+    bubble.classList.remove('pop');
+    bird.classList.remove('talk');
+    void bubble.offsetWidth;
+    bubble.classList.add('pop');
+    bird.classList.add('talk');
+  };
+  const chatter = ['Feliz aniversário!', 'Parabéns, Amandinah!', 'Happy birthday!', 'Libra queen!', 'كل عام وأنتِ بخير', 'Me dá um biscoito?', 'Bora pra praia?'];
+  let chat = 0;
+  document.getElementById('birdBtn').addEventListener('click', () => { say(chatter[chat % chatter.length]); chat++; });
+
+  /* ---------- Volleyball ---------- */
+  const GOAL = 15;
+  const count = ['', 'Um!', 'Dois!', 'Três!', 'Quatro!', 'Cinco!', 'Seis!', 'Sete!', 'Oito!', 'Nove!', 'Dez!', 'Onze!', 'Doze!', 'Treze!', 'Catorze!', 'Quinze!'];
+  const cv = document.getElementById('game');
+  const ctx = cv.getContext('2d');
+  const touchesEl = document.getElementById('touches');
+  const bestEl = document.getElementById('best');
+  const ball = { x: 0, y: 0, vx: 0, vy: 0, r: 26, a: 0 };
+  let W = 0, H = 0, C = {}, state = 'ready', touches = 0, best = 0, won = false, lastHit = 0, last = performance.now(), placed = false;
+
+  try { best = parseInt(localStorage.getItem('amandinah-best') || '0', 10) || 0; } catch (e) { best = 0; }
+  bestEl.textContent = best;
+
+  function readColors() {
+    C = {
+      sky: token('--sky'), skyLow: token('--sky-low'), sea: token('--sea'), seaDeep: token('--sea-deep'),
+      foam: token('--foam'), sand: token('--sand'), sandDeep: token('--sand-deep'), paper: token('--paper'),
+      ink: token('--paper-ink'), yolk: token('--yolk'), sun: token('--sun'), shadow: token('--shadow'),
+    };
+  }
+  const floorY = () => H - 26;
+  const gravity = () => Math.max(900, H * 3.6);
+
+  function size() {
+    const rect = cv.getBoundingClientRect();
+    if (!rect.width) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = rect.width; H = rect.height;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ball.r = Math.max(22, Math.min(30, W / 15));
+    if (!placed) { ball.x = W * 0.42; placed = true; }
+    ball.x = Math.min(Math.max(ball.x, ball.r), W - ball.r);
+    if (state === 'ready') { ball.y = floorY() - ball.r; ball.vy = 0; }
+  }
+
+  function bump(px) {
+    const now = performance.now();
+    if (now - lastHit < 140) return;
+    lastHit = now;
+    const G = gravity();
+    ball.vy = -Math.sqrt(2 * G * H * 0.6) * (0.95 + Math.random() * 0.1);
+    let vx = (ball.x - px) * 7 + (Math.random() - 0.5) * 90;
+    if (ball.x < W * 0.2) vx = Math.abs(vx) + 50;
+    if (ball.x > W * 0.8) vx = -Math.abs(vx) - 50;
+    ball.vx = Math.max(-W * 0.45, Math.min(W * 0.45, vx));
+    touches++;
+    touchesEl.textContent = touches;
+    if (touches > best) {
+      best = touches; bestEl.textContent = best;
+      try { localStorage.setItem('amandinah-best', String(best)); } catch (e) { /* storage unavailable */ }
+    }
+    if (touches === GOAL && !won) {
+      won = true;
+      say('Quinze! Ponto! Feliz aniversário, Amandinah!');
+      const r = cv.getBoundingClientRect();
+      confetti.burst(r.left + ball.x, r.top + ball.y, 180);
+      celebrate();
+    } else if (!won) {
+      say(count[touches] || touches + '!');
+    } else {
+      say(touches + '! Ainda no ar!');
+    }
+  }
+
+  function serve() {
+    state = 'play'; touches = 0; won = false;
+    touchesEl.textContent = 0;
+    bump(ball.x + (Math.random() - 0.5) * ball.r);
+  }
+
+  function tap(px, py) {
+    if (state === 'ready') { serve(); return; }
+    const dx = Math.abs(px - ball.x), dy = py - ball.y;
+    if (dx < ball.r * 2.3 && dy > -ball.r * 2.6 && dy < ball.r * 3) bump(px);
+  }
+
+  cv.addEventListener('pointerdown', (e) => {
+    const r = cv.getBoundingClientRect();
+    tap(e.clientX - r.left, e.clientY - r.top);
+  });
+  cv.addEventListener('keydown', (e) => {
+    if (e.code !== 'Space' && e.key !== 'Enter') return;
+    e.preventDefault();
+    if (state === 'ready') serve();
+    else if (ball.vy > 0 && ball.y > H * 0.35) bump(ball.x + (Math.random() - 0.5) * ball.r);
+  });
+
+  function step(dt) {
+    const G = gravity();
+    ball.vy += G * dt;
+    ball.x += ball.vx * dt;
+    ball.y += ball.vy * dt;
+    ball.a += (ball.vx * dt) / ball.r;
+    if (ball.x < ball.r) { ball.x = ball.r; ball.vx = Math.abs(ball.vx) * 0.85; }
+    if (ball.x > W - ball.r) { ball.x = W - ball.r; ball.vx = -Math.abs(ball.vx) * 0.85; }
+    if (ball.y < ball.r) { ball.y = ball.r; ball.vy = Math.abs(ball.vy) * 0.3; }
+    const fy = floorY() - ball.r;
+    if (ball.y >= fy) {
+      ball.y = fy;
+      if (state === 'play') {
+        state = 'ready';
+        say(touches >= GOAL ? touches + ' touches! Tap to go again.' : 'Ops! Tap to serve again.');
+      }
+      ball.vy = Math.abs(ball.vy) > 120 ? -Math.abs(ball.vy) * 0.38 : 0;
+      ball.vx *= 0.8;
+    }
+    if (state === 'ready' && ball.vy === 0) ball.vx *= Math.max(0, 1 - 4 * dt);
+  }
+
+  function drawScene() {
+    const horizon = H * 0.5, shore = H * 0.7;
+    let g = ctx.createLinearGradient(0, 0, 0, horizon);
+    g.addColorStop(0, C.sky); g.addColorStop(1, C.skyLow);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, horizon);
+    ctx.fillStyle = C.sun;
+    ctx.beginPath(); ctx.arc(W * 0.24, horizon, Math.min(W, H) * 0.09, Math.PI, 0); ctx.fill();
+    g = ctx.createLinearGradient(0, horizon, 0, shore);
+    g.addColorStop(0, C.sea); g.addColorStop(1, C.seaDeep);
+    ctx.fillStyle = g; ctx.fillRect(0, horizon, W, shore - horizon);
+    ctx.fillStyle = C.yolk; ctx.globalAlpha = 0.7;
+    const gw = Math.min(W, H) * 0.14;
+    for (let i = 0; i < 4; i++) {
+      const w = gw * (1 - i * 0.24);
+      ctx.fillRect(W * 0.24 - w / 2, horizon + 8 + i * 9, w, 3);
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = C.sand;
+    ctx.beginPath();
+    ctx.moveTo(0, shore);
+    for (let x = 0; x <= W + 40; x += 40) ctx.quadraticCurveTo(x + 20, shore + (x / 40 % 2 ? 6 : -6), x + 40, shore);
+    ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = C.foam; ctx.lineWidth = 2.5; ctx.globalAlpha = 0.8;
+    ctx.beginPath(); ctx.moveTo(0, shore);
+    for (let x = 0; x <= W + 40; x += 40) ctx.quadraticCurveTo(x + 20, shore + (x / 40 % 2 ? 6 : -6), x + 40, shore);
+    ctx.stroke(); ctx.globalAlpha = 1;
+  }
+
+  function drawBall() {
+    const fy = floorY();
+    const lift = Math.max(0, fy - (ball.y + ball.r));
+    const s = Math.max(0.35, 1 - lift / (H * 0.8));
+    ctx.fillStyle = C.shadow;
+    ctx.beginPath(); ctx.ellipse(ball.x, fy - 2, ball.r * s, ball.r * 0.28 * s, 0, 0, Math.PI * 2); ctx.fill();
+
+    const r = ball.r;
+    ctx.save();
+    ctx.translate(ball.x, ball.y); ctx.rotate(ball.a);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fillStyle = C.paper; ctx.fill();
+    ctx.save(); ctx.clip();
+    ctx.lineWidth = r * 0.42;
+    ctx.strokeStyle = C.yolk;
+    ctx.beginPath(); ctx.arc(-r * 1.15, -r * 0.1, r * 1.05, -0.95, 0.95); ctx.stroke();
+    ctx.strokeStyle = C.sea;
+    ctx.beginPath(); ctx.arc(r * 0.55, r * 1.2, r * 1.05, -2.75, -1.25); ctx.stroke();
+    ctx.strokeStyle = C.yolk;
+    ctx.beginPath(); ctx.arc(r * 0.7, -r * 1.15, r * 1.05, 1.1, 2.6); ctx.stroke();
+    ctx.restore();
+    ctx.lineWidth = 2; ctx.strokeStyle = C.ink;
+    ctx.beginPath(); ctx.arc(0, 0, r - 1, 0, Math.PI * 2); ctx.stroke();
+    ctx.restore();
+  }
+
+  function frame(now) {
+    const dt = Math.min(1 / 30, (now - last) / 1000); last = now;
+    if (!document.hidden && W) {
+      step(dt);
+      drawScene();
+      drawBall();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  readColors();
+  size();
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(cv);
+  else window.addEventListener('resize', size);
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readColors);
+  new MutationObserver(readColors).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
